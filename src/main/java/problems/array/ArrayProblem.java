@@ -26,4 +26,45 @@ class ArrayProblem {
         nums[first] = nums[sec];
         nums[sec] = temp;
     }
+
+    // LC 54, T-O(n), S-O(1)
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int rowStr = 0;
+        int colStr = 0;
+        int rowEnd = matrix.length;
+        int colEnd = matrix[0].length;
+        List<Integer> res = new ArrayList();
+
+        while (rowStr < rowEnd && colStr < colEnd) {
+            // L -> R
+            for (int c = colStr; c < colEnd; c++) {
+                res.add(matrix[rowStr][c]);
+            }
+
+            // T -> B
+            rowStr++;
+            for (int r = rowStr; r < rowEnd; r++) {
+                res.add(matrix[r][colEnd - 1]);
+            }
+
+            // R -> L
+            colEnd--;
+            if (rowStr < rowEnd) {
+                for (int c = colEnd - 1; c >= colStr; c--) {
+                    res.add(matrix[rowEnd - 1][c]);
+                }
+                rowEnd--;
+            }
+
+            // B -> T
+            if (colStr < colEnd) {
+                for (int r = rowEnd - 1; r >= rowStr; r--) {
+                    res.add(matrix[r][colStr]);
+                }
+                colStr++;
+            }
+        }
+
+        return res;
+    }
 }
