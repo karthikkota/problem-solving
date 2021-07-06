@@ -67,4 +67,22 @@ class ArrayProblem {
 
         return res;
     }
+
+    // LC 442, T-O(nlogn), S-O(1)
+    public List<Integer> findDuplicates(int[] nums) {
+        Arrays.sort(nums);
+        List<Integer> res = new ArrayList();
+        int strIdx = 1;
+
+        while (strIdx < nums.length) {
+            if (nums[strIdx - 1] == nums[strIdx]) {
+                res.add(nums[strIdx]);
+                strIdx += 2;
+            } else {
+                strIdx++;
+            }
+        }
+
+        return res;
+    }
 }
