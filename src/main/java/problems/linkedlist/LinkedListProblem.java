@@ -1,7 +1,7 @@
 
 class LinkedListProblem {
 
-    // LC 138, T-O(n), S-O(1)
+    // LC 138, T-O(N), S-O(1)
     public Node copyRandomList(Node head) {
         if (head == null) {
             return null;

@@ -1,7 +1,7 @@
 
 class ArrayProblem {
 
-    // LC 75, T-O(n), S-O(1)
+    // LC 75, T-O(N), S-O(1)
     public void sortColors(int[] nums) {
         int curPtr = 0;
         int color0Ptr = 0;
@@ -27,7 +27,7 @@ class ArrayProblem {
         nums[sec] = temp;
     }
 
-    // LC 54, T-O(n), S-O(1)
+    // LC 54, T-O(N), S-O(1)
     public List<Integer> spiralOrder(int[][] matrix) {
         int rowStr = 0;
         int colStr = 0;

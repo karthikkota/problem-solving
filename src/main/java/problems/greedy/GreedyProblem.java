@@ -1,7 +1,7 @@
 
 class GreedyProblem {
 
-    // LC 402, T-O(n), S-O(n)
+    // LC 402, T-O(N), S-O(N)
     public String removeKdigits(String num, int k) {
         Deque<Character> stk = new ArrayDeque();
 
