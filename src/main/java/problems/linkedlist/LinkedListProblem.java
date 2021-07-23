@@ -47,4 +47,30 @@ class LinkedListProblem {
 
         return newNd;
     }
+
+    // LC 2, T-O(N), S-O(1)
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode l1Ptr = l1;
+        ListNode l2Ptr = l2;
+        ListNode res = new ListNode();
+        ListNode cur = res;
+        int carry = 0;
+
+        while (l1Ptr != null || l2Ptr != null) {
+            int sum = carry;
+
+            if (l1Ptr != null) sum += l1Ptr.val;
+            if (l2Ptr != null) sum += l2Ptr.val;
+
+            carry = sum / 10;
+            cur.next = new ListNode(sum % 10);
+            cur = cur.next;
+
+            if (l1Ptr != null) l1Ptr = l1Ptr.next;
+            if (l2Ptr != null) l2Ptr = l2Ptr.next;
+        }
+
+        if (carry > 0) cur.next = new ListNode(carry);
+        return res.next;
+    }
 }

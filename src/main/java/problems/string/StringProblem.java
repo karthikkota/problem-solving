@@ -27,4 +27,33 @@ class StringProblem {
 
         return s.substring(leftIdx, rightIdx);
     }
+
+    // LC 890, T-O(n), S-O(n)
+    public List<String> findAndReplacePattern(String[] words, String pattern) {
+        List<String> res = new ArrayList<>();
+        String patt = buildPattern(pattern);
+
+        for (String s : words) {
+            String sPattern = buildPattern(s);
+            if (sPattern.equals(patt)) {
+                res.add(s);
+            }
+        }
+        return res;
+    }
+
+    private String buildPattern(String S) {
+        HashMap<Character, Integer> charFreq = new HashMap<>();
+        StringBuilder pattern = new StringBuilder();
+        int i = 0;
+        for (char c : S.toCharArray()) {
+            if (!charFreq.containsKey(c)) {
+                charFreq.put(c, i);
+                i++;
+            }
+            pattern.append(charFreq.get(c));
+        }
+        return pattern.toString();
+    }
+
 }
