@@ -73,4 +73,27 @@ class LinkedListProblem {
         if (carry > 0) cur.next = new ListNode(carry);
         return res.next;
     }
+
+    public static double[] findAverages(int K, int[] arr) {
+        double[] res = new double[arr.length];
+        int resPrt = 0;
+        int left = 0;
+        int right = K - 1;
+
+        int curSum = 0;
+        for (int i = left; i <= right; i++) {
+            curSum += arr[i];
+        }
+
+        while (right < arr.length) {
+            res[resPtr++] = curSum / K;
+            left++;
+            right++;
+
+            if (right < arr.length) {
+                curSum += arr[right];
+            }
+        }
+        return res;
+    }
 }
