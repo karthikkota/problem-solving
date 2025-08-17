@@ -56,4 +56,13 @@ public class Greedy {
         return new String(times);
     }
 
+    // LC 1903
+    public String largestOddNumber(String num) {
+        for (int i = num.length() - 1; i > -1; i--) {
+            if (Character.getNumericValue(num.charAt(i)) % 2 != 0)
+                return num.substring(0, i+1);
+        }
+        return "";
+    }
+
 }
