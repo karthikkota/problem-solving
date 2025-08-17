@@ -83,4 +83,17 @@ public class Greedy {
         return maxDict;
     }
 
+    // LC 2259
+    public String removeDigit(String number, char digit) {
+        int indexToExclude = 0;
+        for (int i = 0; i < number.length(); i++) {
+            if (number.charAt(i) == digit) {
+                indexToExclude = i;
+                if (i < number.length() - 1 && digit < number.charAt(i + 1))
+                    break;
+            }
+        }
+        return number.substring(0, indexToExclude) + number.substring(indexToExclude + 1, number.length());
+    }
+
 }
