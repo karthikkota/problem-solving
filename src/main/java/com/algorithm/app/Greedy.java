@@ -65,4 +65,22 @@ public class Greedy {
         return "";
     }
 
+    // LC 2078
+    public int maxDistance(int[] colors) {
+        int maxDict = 0;
+        for (int i = 0; i < colors.length; i++) {
+            if (colors[i] != colors[colors.length - 1]) {
+                maxDict = Math.max(maxDict, Math.abs(colors.length - 1 - i));
+                break;
+            }
+        }
+
+        for (int j = colors.length - 1; j > -1; j--) {
+            if(colors[0] != colors[j]) {
+                maxDict = Math.max(maxDict, j);
+            }
+        }
+        return maxDict;
+    }
+
 }
