@@ -4,6 +4,23 @@ import java.util.Arrays;
 
 public class Greedy {
 
+    // LC 905
+    public int[] sortArrayByParity(int[] nums) {
+        int str = 0, end = nums.length - 1;
+        while (str < end) {
+            if (nums[str] % 2 > nums[end] % 2) {
+                int temp = nums[str];
+                nums[str] = nums[end];
+                nums[end] = temp;
+            }
+            if (nums[str] % 2 == 0)
+                str++;
+            if (nums[end] % 2 > 0)
+                end--;
+        }
+        return nums;
+    }
+    
     // LC 1013
     public boolean canThreePartsEqualSum(int[] arr) {
         int sum = 0, count = 0, curSum = 0;
