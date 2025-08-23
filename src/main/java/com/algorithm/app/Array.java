@@ -2,6 +2,20 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 575
+    public int distributeCandies(int[] candyType) {
+        int n = candyType.length;
+        int uniqueCandyTypes = 1;
+        Arrays.sort(candyType);
+
+        for (int i = 1; i < n && uniqueCandyTypes < n / 2; i++) {
+            if (candyType[i] != candyType[i - 1])
+                uniqueCandyTypes++;
+        }
+
+        return Math.min(uniqueCandyTypes, n / 2);
+    }
+    
     // LC 500
     public String[] findWords(String[] words) {
         String row1 = "qwertyuiop";
