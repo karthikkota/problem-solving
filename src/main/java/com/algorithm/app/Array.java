@@ -2,6 +2,21 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 643
+    public double findMaxAverage(int[] nums, int k) {
+        double maxAvg = Integer.MIN_VALUE;
+
+        for (int i = 0; i < nums.length - k + 1; i++) {
+            int j = i;
+            int curAvg = 0;
+            while (j < k + i) {
+                curAvg += nums[j++];
+            }
+            maxAvg = Math.max(curAvg, maxAvg);
+        }
+        return maxAvg / k;
+    }
+    
     // LC 575
     public int distributeCandies(int[] candyType) {
         int n = candyType.length;
