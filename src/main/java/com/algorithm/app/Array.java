@@ -2,6 +2,23 @@ package com.algorithm.app;
 
 public class Array {
 
+    // 747
+    public int dominantIndex(int[] nums) {
+        int largestNumIdx = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > nums[largestNumIdx])
+                largestNumIdx = i;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] * 2 > nums[largestNumIdx] && i != largestNumIdx) {
+                return -1;
+            }
+        }
+        return largestNumIdx;
+    }
+    
     // LC 643
     public double findMaxAverage(int[] nums, int k) {
         double maxAvg = Integer.MIN_VALUE;
