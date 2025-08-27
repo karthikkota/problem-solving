@@ -4,6 +4,40 @@ import java.util.Arrays;
 
 public class Greedy {
 
+    // LC 860, modified
+    public boolean lemonadeChange(int[] bills) {
+        int fivedollorBills = 0, tendollorBills = 0;
+
+        for (int i : bills) {
+            if (i == 5)
+                fivedollorBills++;
+            if (i == 10)
+                tendollorBills++;
+        }
+
+        for (int i : bills) {
+            if (i == 10) {
+                if (fivedollorBills == 0) {
+                    return false;
+                } else {
+                    fivedollorBills--;
+                }
+            }
+
+            if (i == 20) {
+                if (fivedollorBills >= 3) {
+                    fivedollorBills -= 3;
+                } else if (tendollorBills >= 1 && fivedollorBills >= 1) {
+                    tendollorBills--;
+                    fivedollorBills--;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
     // LC 905
     public int[] sortArrayByParity(int[] nums) {
         int str = 0, end = nums.length - 1;
