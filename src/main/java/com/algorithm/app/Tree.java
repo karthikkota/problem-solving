@@ -2,6 +2,14 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 104
+    public int maxDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    }
+    
     // LC 100
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null && q == null)
