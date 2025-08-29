@@ -2,7 +2,19 @@ package com.algorithm.app;
 
 public class Tree {
 
-    // 108
+    // LC 112
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if (root == null)
+            return false;
+
+        if (root.val == targetSum && root.left == null && root.right == null) {
+            return true;
+        }
+
+        return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
+    }
+    
+    // LC 108
     int[] nums;
     public TreeNode sortedArrayToBST(int[] nums) {
         this.nums = nums;
