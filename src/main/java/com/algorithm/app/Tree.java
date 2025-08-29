@@ -2,6 +2,25 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // 108
+    int[] nums;
+    public TreeNode sortedArrayToBST(int[] nums) {
+        this.nums = nums;
+        return treeBuilder(0, nums.length - 1);
+    }
+
+    private TreeNode treeBuilder(int left, int right) {
+        if (left > right)
+            return null;
+
+        int mid = (left + right) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = treeBuilder(0, mid - 1);
+        root.right = treeBuilder(mid + 1, right);
+        return root;
+
+    }
+    
     // LC 104
     public int maxDepth(TreeNode root) {
         if (root == null)
