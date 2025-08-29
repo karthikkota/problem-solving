@@ -2,6 +2,22 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 989
+    public List<Integer> addToArrayForm(int[] num, int k) {
+        List<Integer> res = new ArrayList<>();
+        int cur = k, i = num.length - 1;
+
+        while (i > -1 || cur > 0) {
+            if (i > -1)
+                cur += num[i];
+            res.add(cur % 10);
+            cur /= 10;
+            i--;
+        }
+        Collections.reverse(res);
+        return res;
+    }
+    
     // LC 888
     public int[] fairCandySwap(int[] A, int[] B) {
         int sa = 0, sb = 0;
