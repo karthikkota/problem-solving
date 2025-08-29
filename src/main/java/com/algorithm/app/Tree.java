@@ -2,6 +2,13 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 222
+    public int countNodes(TreeNode root) {
+        if (root == null)
+          return 0;
+        return 1 + countNodes(root.right) + countNodes(root.left);
+    }
+    
     // LC 112
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if (root == null)
