@@ -2,6 +2,27 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 257
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> res = new ArrayList();
+        buildPaths(root, res, "");
+        return res;
+    }
+
+    private void buildPaths(TreeNode root, List<String> res, String path) {
+        if (root == null)
+            return;
+
+        path += path == "" ? root.val : "->" + root.val;
+        if (root.left == null && root.right == null) {
+            res.add(path);
+            return;
+        }
+
+        buildPaths(root.left, res, path);
+        buildPaths(root.right, res, path);
+    }
+    
     // LC 222
     public int countNodes(TreeNode root) {
         if (root == null)
