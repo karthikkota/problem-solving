@@ -2,6 +2,16 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 700
+    public TreeNode searchBST(TreeNode root, int val) {
+        if (root == null || root.val == val) return root;
+
+        if (root.val < val)
+            return searchBST(root.right, val);
+        else
+            return searchBST(root.left, val);
+    }
+
     // LC 257
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> res = new ArrayList();
