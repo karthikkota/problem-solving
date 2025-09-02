@@ -33,7 +33,7 @@ public class Array {
         throw null;
     }
     
-    // 747
+    // LC 747
     public int dominantIndex(int[] nums) {
         int largestNumIdx = 0;
 
