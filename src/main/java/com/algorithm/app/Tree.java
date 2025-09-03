@@ -2,6 +2,22 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 590
+    public List<Integer> postorder(Node root) {
+        List<Integer> vals = new ArrayList();
+        postorder(root, vals);
+        return vals;
+    }
+
+    private void postorder(Node root, List<Integer> vals) {
+        if (root!=null) {
+            for (Node n : root.children) {
+                postorder(n, vals);
+            }
+            vals.add(root.val);
+        }
+    }
+    
     // LC 965
     public boolean isUnivalTree(TreeNode root) {
         if (root == null)  return false;
