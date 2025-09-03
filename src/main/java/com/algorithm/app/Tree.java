@@ -1,7 +1,63 @@
 package com.algorithm.app;
 
 public class Tree {
+    // LC 2689
+    StringBuilder res = new StringBuilder();
+    public char getKthCharacter(RopeTreeNode root, int k) {
+        buildVals(root);
+        return res.charAt(k - 1);
+    }
 
+    private void buildVals(RopeTreeNode root) {
+        if (root == null) return;
+        if (root.left == null && root.right == null) res.append(root.val);
+        buildVals(root.left);
+        buildVals(root.right);
+    }
+    
+    // LC 2331
+    public boolean evaluateTree(TreeNode root) {
+        if (root.val == 0)
+            return false;
+        if (root.val == 1)
+            return true;
+
+        boolean leftEval = evaluateTree(root.left);
+        boolean rightEval = evaluateTree(root.right);
+
+        if (root.val == 2)
+            return leftEval || rightEval;
+        return leftEval && rightEval;
+    }
+    
+    // LC 590
+    public List<Integer> postorder(Node root) {
+        List<Integer> vals = new ArrayList();
+        postorder(root, vals);
+        return vals;
+    }
+
+    private void postorder(Node root, List<Integer> vals) {
+        if (root!=null) {
+            for (Node n : root.children) {
+                postorder(n, vals);
+            }
+            vals.add(root.val);
+        }
+    }
+    
+    // LC 965
+    public boolean isUnivalTree(TreeNode root) {
+        if (root == null)  return false;
+        return isUnivalTree(root, root.val);
+    }
+
+    private boolean isUnivalTree(TreeNode root, int val) {
+        if (root == null)  return true;
+        if (root.val != val)  return false;
+        return isUnivalTree(root.left, val) && isUnivalTree(root.right, val);
+    }
+    
     // LC 589
     public List<Integer> preorder(Node root) {
         List<Integer> list = new ArrayList();
