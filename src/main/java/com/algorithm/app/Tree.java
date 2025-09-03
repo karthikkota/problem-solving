@@ -1,7 +1,21 @@
 package com.algorithm.app;
 
 public class Tree {
+    // LC 2331
+    public boolean evaluateTree(TreeNode root) {
+        if (root.val == 0)
+            return false;
+        if (root.val == 1)
+            return true;
 
+        boolean leftEval = evaluateTree(root.left);
+        boolean rightEval = evaluateTree(root.right);
+
+        if (root.val == 2)
+            return leftEval || rightEval;
+        return leftEval && rightEval;
+    }
+    
     // LC 590
     public List<Integer> postorder(Node root) {
         List<Integer> vals = new ArrayList();
