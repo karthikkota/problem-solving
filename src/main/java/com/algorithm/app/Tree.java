@@ -1,6 +1,20 @@
 package com.algorithm.app;
 
 public class Tree {
+    // LC 2689
+    StringBuilder res = new StringBuilder();
+    public char getKthCharacter(RopeTreeNode root, int k) {
+        buildVals(root);
+        return res.charAt(k - 1);
+    }
+
+    private void buildVals(RopeTreeNode root) {
+        if (root == null) return;
+        if (root.left == null && root.right == null) res.append(root.val);
+        buildVals(root.left);
+        buildVals(root.right);
+    }
+    
     // LC 2331
     public boolean evaluateTree(TreeNode root) {
         if (root.val == 0)
