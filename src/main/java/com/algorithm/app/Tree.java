@@ -2,6 +2,23 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 589
+    public List<Integer> preorder(Node root) {
+        List<Integer> list = new ArrayList();
+        preorder(root, list);
+        return list;
+    }
+
+    private void preorder(Node root, List<Integer> values) {
+        if (root == null)
+            return;
+
+        values.add(root.val);
+        for (Node n : root.children) {
+            preorder(n, values);
+        }
+    }
+    
     // LC 404
     public int sumOfLeftLeaves(TreeNode root) {
         if (root == null)
