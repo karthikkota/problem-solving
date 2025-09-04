@@ -1,6 +1,22 @@
 package com.algorithm.app;
 
 public class Tree {
+    // LC 94 Iterative
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList();
+        Stack<TreeNode> stk = new Stack();
+        TreeNode cur = root;
+        while (cur != null || !stk.isEmpty()) {
+            while (cur != null) {
+                stk.push(cur);
+                cur = cur.left;
+            }
+            cur = stk.pop();
+            res.add(cur.val);
+            cur = cur.right;
+        }
+        return res;
+    }
     
     // LC 997
     public int findJudge(int n, int[][] trust) {
