@@ -2,6 +2,42 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 104 Iterative
+    public int maxDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+
+        Stack<Pair<TreeNode, Integer>> stk = new Stack();
+        stk.push(new Pair(root, 1));
+
+        int maxDepth = 0;
+        while (!stk.isEmpty()) {
+            Pair<TreeNode, Integer> pair = stk.pop();
+            TreeNode node = pair.key;
+            int currDepth = pair.value;
+            maxDepth = Math.max(maxDepth, currDepth);
+
+            if (node.left != null) {
+                stk.push(new Pair(node.left, currDepth + 1));
+            }
+
+            if (node.right != null) {
+                stk.push(new Pair(node.right, currDepth + 1));
+            }
+        }
+        return maxDepth;
+    }
+
+    class Pair<K, V> {
+        K key;
+        V value;
+
+        public Pair(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+    
     // LC 101 Iterative
     public boolean isSymmetric(TreeNode root) {
         Queue<TreeNode> q = new LinkedList();
