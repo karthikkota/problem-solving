@@ -2,6 +2,26 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 226 Iterative
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null)
+            return null;
+        Queue<TreeNode> qu = new LinkedList();
+        qu.add(root);
+
+        while (!qu.isEmpty()) {
+            TreeNode cur = qu.poll();
+            TreeNode tmp = cur.left;
+            cur.left = cur.right;
+            cur.right = tmp;
+            if (cur.left != null)
+                qu.add(cur.left);
+            if (cur.right != null)
+                qu.add(cur.right);
+        }
+        return root;
+    }
+    
     // LC 145 Iterative
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList();
