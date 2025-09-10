@@ -2,6 +2,34 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 145 Iterative
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList();
+        if (root == null)
+            return res;
+
+        TreeNode prevNode = null;
+        Stack<TreeNode> stk = new Stack();
+
+        while (root != null || !stk.isEmpty()) {
+            if (root != null) {
+                stk.push(root);
+                root = root.left;
+            } else {
+                root = stk.peek();
+                if (root.right == null || root.right == prevNode) {
+                    res.add(root.val);
+                    stk.pop();
+                    prevNode = root;
+                    root = null;
+                } else {
+                    root = root.right;
+                }
+            }
+        }
+        return res;
+    }
+    
     // LC 144 Iterative
     public List<Integer> preorderTraversal(TreeNode root) {
         Stack<TreeNode> stk = new Stack();
