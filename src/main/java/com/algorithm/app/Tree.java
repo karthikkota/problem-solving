@@ -2,6 +2,102 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 501 Iterative
+    public int[] findMode(TreeNode root) {
+        Map<Integer, Integer> freqC = new HashMap();
+        Deque<TreeNode> stk = new ArrayDeque();
+        stk.push(root);
+        int modeCount = 0;
+
+        while (!stk.isEmpty()) {
+            TreeNode cur = stk.pop();
+            freqC.put(cur.val, freqC.getOrDefault(cur.val, 0) + 1);
+            if (cur.left != null)
+                stk.push(cur.left);
+            if (cur.right != null)
+                stk.push(cur.right);
+        }
+
+        List<Integer> res = new ArrayList();
+        for (int i : freqC.keySet()) {
+            modeCount = Math.max(modeCount, freqC.get(i));
+        }
+
+        for (int i : freqC.keySet()) {
+            if (freqC.get(i) == modeCount)
+                res.add(i);
+        }
+        return res.stream().mapToInt(Integer::intValue).toArray();
+    }
+    
+    // LC 404 Iterative
+    public int sumOfLeftLeaves(TreeNode root) {
+        int sum = 0;
+        Deque<TreeNode> stk = new ArrayDeque();
+        stk.add(root);
+
+        while (!stk.isEmpty()) {
+            TreeNode curN = stk.pop();
+            if (curN != null && curN.left != null && curN.left.left == null && curN.left.right == null) {
+                sum += curN.left.val;
+            }
+
+            if (curN.left != null)
+                stk.push(curN.left);
+            if (curN.right != null)
+                stk.push(curN.right);
+        }
+        return sum;
+    }
+    
+    // LC 270 Iterative
+    public int closestValue(TreeNode root, double target) {
+        Stack<TreeNode> stk = new Stack();
+        long prev = Long.MIN_VALUE;
+
+        while (!stk.isEmpty() || root != null) {
+            while (root != null) {
+                stk.push(root);
+                root = root.left;
+            }
+            root = stk.pop();
+
+            if (prev <= target && target < root.val)
+                return Math.abs(prev - target) <= Math.abs(root.val - target) ? (int) prev : root.val;
+
+            prev = root.val;
+            root = root.right;
+        }
+        return (int) prev;
+    }
+    
+    // LC 257 Iterative
+    public List<String> binaryTreePaths(TreeNode root) {
+        LinkedList<String> paths = new LinkedList();
+        if (root == null) return paths;
+
+        LinkedList<TreeNode> stk = new LinkedList();
+        LinkedList<String> pth = new LinkedList();
+        stk.push(root);
+        pth.push(Integer.toString(root.val));
+        TreeNode node;
+        String path;
+
+        while(!stk.isEmpty()) {
+            node = stk.pop();
+            path = pth.pop();
+            if (node.left == null && node.right == null) paths.add(path);
+            if (node.left != null) {
+                stk.add(node.left);
+                pth.add(path + "->" + Integer.toString(node.left.val));
+            }
+
+            if (node.right != null) {
+                stk.add(node.right);
+                pth.add(path + "->" + Integer.toString(node.right.val));
+            }
+        }
+        
     // LC 226 Iterative
     public TreeNode invertTree(TreeNode root) {
         if (root == null)
