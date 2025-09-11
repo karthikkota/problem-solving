@@ -2,6 +2,34 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 501 Iterative
+    public int[] findMode(TreeNode root) {
+        Map<Integer, Integer> freqC = new HashMap();
+        Deque<TreeNode> stk = new ArrayDeque();
+        stk.push(root);
+        int modeCount = 0;
+
+        while (!stk.isEmpty()) {
+            TreeNode cur = stk.pop();
+            freqC.put(cur.val, freqC.getOrDefault(cur.val, 0) + 1);
+            if (cur.left != null)
+                stk.push(cur.left);
+            if (cur.right != null)
+                stk.push(cur.right);
+        }
+
+        List<Integer> res = new ArrayList();
+        for (int i : freqC.keySet()) {
+            modeCount = Math.max(modeCount, freqC.get(i));
+        }
+
+        for (int i : freqC.keySet()) {
+            if (freqC.get(i) == modeCount)
+                res.add(i);
+        }
+        return res.stream().mapToInt(Integer::intValue).toArray();
+    }
+    
     // LC 404 Iterative
     public int sumOfLeftLeaves(TreeNode root) {
         int sum = 0;
