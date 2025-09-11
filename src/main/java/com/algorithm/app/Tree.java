@@ -2,6 +2,33 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 257 Iterative
+    public List<String> binaryTreePaths(TreeNode root) {
+        LinkedList<String> paths = new LinkedList();
+        if (root == null) return paths;
+
+        LinkedList<TreeNode> stk = new LinkedList();
+        LinkedList<String> pth = new LinkedList();
+        stk.push(root);
+        pth.push(Integer.toString(root.val));
+        TreeNode node;
+        String path;
+
+        while(!stk.isEmpty()) {
+            node = stk.pop();
+            path = pth.pop();
+            if (node.left == null && node.right == null) paths.add(path);
+            if (node.left != null) {
+                stk.add(node.left);
+                pth.add(path + "->" + Integer.toString(node.left.val));
+            }
+
+            if (node.right != null) {
+                stk.add(node.right);
+                pth.add(path + "->" + Integer.toString(node.right.val));
+            }
+        }
+        
     // LC 226 Iterative
     public TreeNode invertTree(TreeNode root) {
         if (root == null)
