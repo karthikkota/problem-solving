@@ -2,6 +2,76 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 226 Iterative
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null)
+            return null;
+        Queue<TreeNode> qu = new LinkedList();
+        qu.add(root);
+
+        while (!qu.isEmpty()) {
+            TreeNode cur = qu.poll();
+            TreeNode tmp = cur.left;
+            cur.left = cur.right;
+            cur.right = tmp;
+            if (cur.left != null)
+                qu.add(cur.left);
+            if (cur.right != null)
+                qu.add(cur.right);
+        }
+        return root;
+    }
+    
+    // LC 145 Iterative
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList();
+        if (root == null)
+            return res;
+
+        TreeNode prevNode = null;
+        Stack<TreeNode> stk = new Stack();
+
+        while (root != null || !stk.isEmpty()) {
+            if (root != null) {
+                stk.push(root);
+                root = root.left;
+            } else {
+                root = stk.peek();
+                if (root.right == null || root.right == prevNode) {
+                    res.add(root.val);
+                    stk.pop();
+                    prevNode = root;
+                    root = null;
+                } else {
+                    root = root.right;
+                }
+            }
+        }
+        return res;
+    }
+    
+    // LC 144 Iterative
+    public List<Integer> preorderTraversal(TreeNode root) {
+        Stack<TreeNode> stk = new Stack();
+        List<Integer> res = new ArrayList();
+        if (root == null)
+            return res;
+
+        stk.push(root);
+        while (!stk.isEmpty()) {
+            TreeNode cur = stk.pop();
+            res.add(cur.val);
+            if (cur.right != null) {
+                stk.add(cur.right);
+            }
+
+            if (cur.left != null) {
+                stk.add(cur.left);
+            }
+        }
+        return res;
+    }
+    
     // LC 111 Iterative
     public int minDepth(TreeNode root) {
         if (root == null) return 0;
