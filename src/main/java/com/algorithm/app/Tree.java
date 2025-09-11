@@ -2,6 +2,26 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 404 Iterative
+    public int sumOfLeftLeaves(TreeNode root) {
+        int sum = 0;
+        Deque<TreeNode> stk = new ArrayDeque();
+        stk.add(root);
+
+        while (!stk.isEmpty()) {
+            TreeNode curN = stk.pop();
+            if (curN != null && curN.left != null && curN.left.left == null && curN.left.right == null) {
+                sum += curN.left.val;
+            }
+
+            if (curN.left != null)
+                stk.push(curN.left);
+            if (curN.right != null)
+                stk.push(curN.right);
+        }
+        return sum;
+    }
+    
     // LC 270 Iterative
     public int closestValue(TreeNode root, double target) {
         Stack<TreeNode> stk = new Stack();
