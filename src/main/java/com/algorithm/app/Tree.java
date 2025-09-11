@@ -2,6 +2,27 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 270 Iterative
+    public int closestValue(TreeNode root, double target) {
+        Stack<TreeNode> stk = new Stack();
+        long prev = Long.MIN_VALUE;
+
+        while (!stk.isEmpty() || root != null) {
+            while (root != null) {
+                stk.push(root);
+                root = root.left;
+            }
+            root = stk.pop();
+
+            if (prev <= target && target < root.val)
+                return Math.abs(prev - target) <= Math.abs(root.val - target) ? (int) prev : root.val;
+
+            prev = root.val;
+            root = root.right;
+        }
+        return (int) prev;
+    }
+    
     // LC 257 Iterative
     public List<String> binaryTreePaths(TreeNode root) {
         LinkedList<String> paths = new LinkedList();
