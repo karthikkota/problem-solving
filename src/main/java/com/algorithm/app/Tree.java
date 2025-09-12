@@ -2,6 +2,24 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 590 Iterative
+    public List<Integer> postorder(Node root) {
+        List<Integer> res = new ArrayList();
+        Deque<Node> stk = new ArrayDeque();
+        if (root == null) return res;
+
+        stk.push(root);
+        while (!stk.isEmpty()) {
+            Node cur = stk.pop();
+            res.add(cur.val);
+            for (Node c : cur.children) {
+                stk.push(c);
+            }
+        }
+        Collections.reverse(res);
+        return res;
+    }
+    
     // LC 501 Iterative
     public int[] findMode(TreeNode root) {
         Map<Integer, Integer> freqC = new HashMap();
