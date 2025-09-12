@@ -2,6 +2,32 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 617 Iterative
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        if (root1 == null)
+            return root2;
+        Deque<TreeNode[]> stk = new ArrayDeque();
+        stk.push(new TreeNode[] { root1, root2 });
+
+        while (!stk.isEmpty()) {
+            TreeNode[] curPair = stk.pop();
+            if (curPair[0] == null || curPair[1] == null)
+                continue;
+            curPair[0].val += curPair[1].val;
+
+            if (curPair[0].left == null)
+                curPair[0].left = curPair[1].left;
+            else
+                stk.push(new TreeNode[] { curPair[0].left, curPair[1].left });
+
+            if (curPair[0].right == null)
+                curPair[0].right = curPair[1].right;
+            else
+                stk.push(new TreeNode[] { curPair[0].right, curPair[1].right });
+        }
+        return root1;
+    }
+    
     // LC 590 Iterative
     public List<Integer> postorder(Node root) {
         List<Integer> res = new ArrayList();
