@@ -2,6 +2,26 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 897
+    TreeNode cur;
+    public TreeNode increasingBST(TreeNode root) {
+        TreeNode res = new TreeNode(0);
+        cur = res;
+        rightOnlyInorderTree(root);
+        return res.right;
+    }
+
+    private void rightOnlyInorderTree(TreeNode root) {
+        if (root == null)
+            return;
+
+        rightOnlyInorderTree(root.left);
+        root.left = null;
+        cur.right = root;
+        cur = root;
+        rightOnlyInorderTree(root.right);
+    }
+    
     // LC 617 Iterative
     public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
         if (root1 == null)
