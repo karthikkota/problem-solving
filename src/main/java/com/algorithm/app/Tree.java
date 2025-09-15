@@ -1,7 +1,25 @@
 package com.algorithm.app;
 
 public class Tree {
-
+    // LC 938
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        int res = 0;
+        Deque<TreeNode> stk = new ArrayDeque();
+        stk.push(root);
+        while (!stk.isEmpty()) {
+            TreeNode cur = stk.pop();
+            if (cur != null) {
+                if (low <= cur.val && cur.val <= high)
+                    res += cur.val;
+                if (low < cur.val && cur.left != null)
+                    stk.push(cur.left);
+                if (cur.val < high && cur.right != null)
+                    stk.push(cur.right);
+            }
+        }
+        return res;
+    }
+    
     // LC 897
     TreeNode cur;
     public TreeNode increasingBST(TreeNode root) {
