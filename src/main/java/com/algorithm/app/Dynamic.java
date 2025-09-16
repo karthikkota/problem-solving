@@ -1,6 +1,28 @@
 package com.algorithm.app;
 
 public class Dynamic {
+
+    // LC 392 Recursive
+    String source, target;
+    int leftBound, rightBound;
+
+    public boolean isSubsequence(String s, String t) {
+        source = s; target = t;
+        leftBound = s.length(); rightBound = t.length();
+        return isSubsequence(0, 0);
+    }
+
+    private boolean isSubsequence(int left, int right) {
+        if (left == leftBound)
+            return true;
+        if (right == rightBound)
+            return false;
+
+        if (source.charAt(left) == target.charAt(right))
+            left++;
+        right++;
+        return isSubsequence(left, right);
+    }
     
     // LC 118
     public int climbStairs(int n) {
