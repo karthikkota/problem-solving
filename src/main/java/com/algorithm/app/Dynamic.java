@@ -2,6 +2,26 @@ package com.algorithm.app;
 
 public class Dynamic {
 
+    // LC 392 DP
+    public boolean isSubsequence(String s, String t) {
+        int sLen = s.length(), tLen = t.length();
+        if (s.length() == 0)
+            return true;
+        int[][] mem = new int[sLen + 1][tLen + 1];
+        for (int c = 1; c <= tLen; c++) {
+            for (int r = 1; r <= sLen; r++) {
+                if (s.charAt(r - 1) == t.charAt(c - 1))
+                    mem[r][c] = mem[r - 1][c - 1] + 1;
+                else
+                    mem[r][c] = Math.max(mem[r][c - 1], mem[r - 1][c]);
+            }
+
+            if (mem[sLen][c] == sLen)
+                return true;
+        }
+        return false;
+    }
+    
     // LC 392 2-pointer
     public boolean isSubsequence(String s, String t) {
         int left = 0, right = 0;
