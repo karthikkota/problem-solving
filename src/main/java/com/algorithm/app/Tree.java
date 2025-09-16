@@ -1,6 +1,25 @@
 package com.algorithm.app;
 
 public class Tree {
+    // LC 965
+    public boolean isUnivalTree(TreeNode root) {
+        if (root == null)
+            return false;
+
+        Deque<TreeNode> stk = new ArrayDeque();
+        stk.push(root);
+        while (!stk.isEmpty()) {
+            TreeNode cur = stk.pop();
+            if (cur.val != root.val)
+                return false;
+            if (cur.left != null)
+                stk.push(cur.left);
+            if (cur.right != null)
+                stk.push(cur.right);
+        }
+        return true;
+    }
+    
     // LC 938
     public int rangeSumBST(TreeNode root, int low, int high) {
         int res = 0;
