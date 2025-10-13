@@ -1,7 +1,80 @@
 package com.algorithm.app;
 
 public class Dynamic {
+    // LC 62
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+        for (int[] arr : dp) {
+            Arrays.fill(arr, 1);
+        }
 
+        for (int col = 1; col < m; col++) {
+            for (int row = 1; row < n; row++) {
+                dp[col][row] = dp[col - 1][row] + dp[col][row - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+    
+    // LC 53
+    public int maxSubArray(int[] nums) {
+        int curSum = nums[0], maxSum = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            int num = nums[i];
+            curSum = Math.max(num, curSum + num);
+            maxSum = Math.max(curSum, maxSum);
+        }
+        return maxSum;
+    }
+    
+    // LC 22
+    public List<String> generateParanthesis(int n) {
+        List<String> res = new ArrayList();
+        backtrack(res, new StringBuilder(), 0, 0, n);
+        return res;
+    }
+
+    private void backtrack(List<String> res, StringBuilder curStr, int leftCount, int rightCount, int n) {
+        if (curStr.length() == 2 * n) {
+            res.add(curStr.toString());
+            return;
+        }
+
+        if (leftCount < n) {
+            curStr.append("(");
+            backtrack(res, curStr, leftCount + 1, rightCount, n);
+            curStr.deleteChatAt(cutStr.length() - 1);
+        }
+
+        if (leftCount > rightCount) {
+            curStr.append(")");
+            backtrack(res, cutStr, leftCount, rightCount + 1, n);
+            cutStr.deleteCharAt(cutStr.length() - 1);
+        }
+    }
+
+    // LC 5
+    public String longestPalindrome(String s) {
+        int end = 0, start = 0, maxLen = 1, n = s.length();
+        boolean[][] dp = new boolean[n][n];
+
+        for (int i = 0; i < s.length(); ++i) {
+            dp[i][i] = true;
+            for (int j = 0; j < i; ++j) {
+                if (s.charAt(j) == s.charAt(i) && (i - j <= 2 || dp[j + 1][i - 1])) {
+                    dp[j][i] = true;
+                    if (i - j + 1 > maxLen) {
+                        maxLen = i - j + 1;
+                        start = j;
+                        end = i;
+                    }
+                }
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+    
     // LC 392 DP
     public boolean isSubsequence(String s, String t) {
         int sLen = s.length(), tLen = t.length();
