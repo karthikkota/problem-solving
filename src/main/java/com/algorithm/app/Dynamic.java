@@ -2,6 +2,32 @@ package com.algorithm.app;
 
 public class Dynamic {
 
+    // LC 22
+    public List<String> generateParanthesis(int n) {
+        List<String> res = new ArrayList();
+        backtrack(res, new StringBuilder(), 0, 0, n);
+        return res;
+    }
+
+    private void backtrack(List<String> res, StringBuilder curStr, int leftCount, int rightCount, int n) {
+        if (curStr.length() == 2 * n) {
+            res.add(curStr.toString());
+            return;
+        }
+
+        if (leftCount < n) {
+            curStr.append("(");
+            backtrack(res, curStr, leftCount + 1, rightCount, n);
+            curStr.deleteChatAt(cutStr.length() - 1);
+        }
+
+        if (leftCount > rightCount) {
+            curStr.append(")");
+            backtrack(res, cutStr, leftCount, rightCount + 1, n);
+            cutStr.deleteCharAt(cutStr.length() - 1);
+        }
+    }
+
     // LC 5
     public String longestPalindrome(String s) {
         int end = 0, start = 0, maxLen = 1, n = s.length();
