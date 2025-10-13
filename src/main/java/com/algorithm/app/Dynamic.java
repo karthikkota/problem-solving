@@ -2,6 +2,18 @@ package com.algorithm.app;
 
 public class Dynamic {
 
+    // LC 53
+    public int maxSubArray(int[] nums) {
+        int curSum = nums[0], maxSum = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            int num = nums[i];
+            curSum = Math.max(num, curSum + num);
+            maxSum = Math.max(curSum, maxSum);
+        }
+        return maxSum;
+    }
+    
     // LC 22
     public List<String> generateParanthesis(int n) {
         List<String> res = new ArrayList();
