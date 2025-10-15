@@ -116,7 +116,7 @@ public class Dynamic {
         return s.substring(start, end + 1);
     }
     
-    // LC 392 DP
+    // LC 392
     public boolean isSubsequence(String s, String t) {
         int sLen = s.length(), tLen = t.length();
         if (s.length() == 0)
