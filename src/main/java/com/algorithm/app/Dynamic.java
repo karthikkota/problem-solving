@@ -1,6 +1,47 @@
 package com.algorithm.app;
 
 public class Dynamic {
+
+    // LC 72
+    public int minDistance(String word1, String word2) {
+        int word1Len = word1.length();
+        int word2Len = word2.length();
+
+        if (word1Len == 0) return word2Len;
+        if (word2Len == 0) return word1Len;
+
+        int dp[][] = new int[word1Len + 1][word2Len + 1];
+
+        for (int i = 1; i <= word1Len; i++) {
+            dp[i][0] = i;
+        }
+
+        for (int j = 1; j <= word2Len; j++) {
+            dp[0][j] = j;
+        }
+
+        for (int i = 1; i <= word1Len; i++) {
+            for (int j = 1; j <= word2Len; j++) {
+                if (
+                    word2.charAt(j - 1) == word1.charAt(i - 1)
+                ) {
+                    dp[i][j] = dp[i - 1][j -
+                        1];
+                } else {
+                    dp[i][j] = Math.min(
+                        dp[i - 1][j],
+                        Math.min(
+                            dp[i][j - 1],
+                            dp[i - 1][j - 1]
+                        )
+                    ) +
+                    1;
+                }
+            }
+        }
+        return dp[word1Len][word2Len];
+    }
+    
     // LC 62
     public int uniquePaths(int m, int n) {
         int[][] dp = new int[m][n];
