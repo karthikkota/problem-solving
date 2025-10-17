@@ -2,6 +2,28 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 347
+    public int[] topKFrequent(int[] nums, int k) {
+        if (k == nums.length) return nums;
+
+        Map<Integer, Integer> hm = new HashMap<>();
+        for (int n : nums) {
+            hm.put(n, hm.getOrDefault(n, 0) + 1);
+        }
+
+        Queue<Integer> minFreqHeap = new PriorityQueue<>((n1, n2) -> hm.get(n1) - hm.get(n2));
+        for (int n : hm.keySet()) {
+            minFreqHeap.add(n);
+            if (minFreqHeap.size() > k) minFreqHeap.poll();
+        }
+
+        int[] res = new int[k];
+        for (int i = k - 1; i >= 0; i--) {
+            res[i] = minFreqHeap.poll();
+        }
+        return res;
+    }
+    
     // LC 49
     public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> res = new ArrayList();
