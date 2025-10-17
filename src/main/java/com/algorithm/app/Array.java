@@ -2,6 +2,33 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 49
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res = new ArrayList();
+        Map<String, List> anagramMap = new HashMap();
+        for (String s : strs) {
+            String charCountRep = formatToCharCount(s);
+            if (!anagramMap.containsKey(charCountRep)) {
+                anagramMap.put(charCountRep, new ArrayList());
+            }
+            anagramMap.get(charCountRep).add(s);
+        }
+        return new ArrayList(anagramMap.values());
+    }
+
+    private String formatToCharCount(String s) {
+        int[] charCount = new int[26];
+        StringBuilder sBuilder = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            charCount[c - 'a']++;
+        }
+
+        for (int i : charCount) {
+            sBuilder.append(i).append("#");
+        }
+        return sBuilder.toString();
+    }
+    
     // LC 989
     public List<Integer> addToArrayForm(int[] num, int k) {
         List<Integer> res = new ArrayList<>();
