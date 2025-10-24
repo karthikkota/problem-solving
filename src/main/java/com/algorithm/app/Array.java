@@ -2,6 +2,21 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 238
+    public int[] productExceptSelf(int[] nums) {
+        int[] res = new int[nums.length];
+        res[0] = 1;
+        for (int i = 1; i < nums.length; i++) {
+            res[i] = nums[i - 1] * res[i - 1];
+        }
+        int R = 1;
+        for (int i = nums.length - 1; i > -1; i--) {
+            res[i] = res[i] * R;
+            R *= nums[i];
+        }
+        return res;
+    }
+    
     // LC 347
     public int[] topKFrequent(int[] nums, int k) {
         if (k == nums.length) return nums;
