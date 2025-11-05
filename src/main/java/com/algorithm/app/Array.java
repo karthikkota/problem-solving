@@ -2,6 +2,32 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 128
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> hashSet = new HashSet<>();
+        for (int num : nums) {
+            hashSet.add(num);
+        }
+
+        int res = 0;
+
+        for (int n : hashSet) {
+            if (!hashSet.contains(n - 1)) {
+                int curNum = n;
+                int curStreak = 1;
+
+                while (hashSet.contains(curNum + 1)) {
+                    curNum += 1;
+                    curStreak += 1;
+                }
+
+                res = Math.max(res, curStreak);
+            }
+        }
+
+        return res;
+    }
+    
     // LC 238
     public int[] productExceptSelf(int[] nums) {
         int[] res = new int[nums.length];
