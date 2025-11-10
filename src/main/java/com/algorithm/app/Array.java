@@ -2,6 +2,23 @@ package com.algorithm.app;
 
 public class Array {
 
+    // 11
+    public int maxArea(int[] height) {
+        int left = 0, right = height.length - 1, maxArea = 0;
+        while (left != right) {
+            int len = right - left;
+            int curHeight = Math.min(height[left], height[right]);
+            maxArea = Math.max(len * curHeight, maxArea);
+
+            if (height[left] <= height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return maxArea;
+    }
+    
     // LC 128
     public int longestConsecutive(int[] nums) {
         Set<Integer> hashSet = new HashSet<>();
