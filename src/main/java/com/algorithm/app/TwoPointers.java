@@ -1,6 +1,22 @@
 package com.algorithm.app;
 
 public class TwoPointers {
+
+  // LC 11
+  public int maxArea(int[] height) {
+        int left = 0, right = height.length - 1, maxArea = 0;
+        while (left < right) {
+            int curLen = right - left;
+            maxArea = Math.max(maxArea, Math.min(height[left], height[right]) * curLen);
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return maxArea;
+    }
+  
   // LC 167
   public int[] twoSum(int[] numbers, int target) {
         int low = 0;
