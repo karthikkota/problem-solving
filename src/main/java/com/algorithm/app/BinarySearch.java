@@ -6,14 +6,14 @@ public class BinarySearch {
   public boolean searchMatrix(int[][] matrix, int target) {
         int m = matrix.length, n = matrix[0].length;
         int l = 0, r = m * n - 1;
-        int pivotIdx, pivotElement;
+        int midIdx, curElem;
         while (l <= r) {
-            pivotIdx = (l + r) / 2;
-            pivotElement = matrix[pivotIdx / n][pivotIdx % n];
-            if (pivotElement < target) {
-                l = pivotIdx + 1;
-            } else if (pivotElement > target) {
-                r = pivotIdx - 1;
+            midIdx = (l + r) / 2;
+            curElem = matrix[midIdx / n][midIdx % n];
+            if (curElem < target) {
+                l = midIdx + 1;
+            } else if (curElem > target) {
+                r = midIdx - 1;
             } else {
                 return true;
             }
