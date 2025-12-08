@@ -2,6 +2,47 @@ package com.algorithm.app;
 
 public class BinarySearch {
 
+  // public int minEatingSpeed(int[] piles, int h) {
+        int left = 1, right = 1;
+        for (int count : piles) {
+            right = Math.max(right, count);
+        }
+
+        while (left < right) {
+            int mid = (left + right) / 2;
+            int hoursSpent = 0;
+            for (int count : piles) {
+                hoursSpent += Math.ceil((double)count / mid);
+            }
+            if (hoursSpent <= h) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return right;
+    }
+  public int minEatingSpeed(int[] piles, int h) {
+        int left = 1, right = 1;
+        for (int count : piles) {
+            right = Math.max(right, count);
+        }
+
+        while (left < right) {
+            int mid = (left + right) / 2;
+            int hoursSpent = 0;
+            for (int count : piles) {
+                hoursSpent += Math.ceil((double)count / mid);
+            }
+            if (hoursSpent <= h) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return right;
+    }
+  
   // LC 74
   public boolean searchMatrix(int[][] matrix, int target) {
         int m = matrix.length, n = matrix[0].length;
