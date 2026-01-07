@@ -2,6 +2,20 @@ package com.algorithm.app;
 
 public class Array {
 
+    // 136
+    public int singleNumber(int[] nums) {
+        Set<Integer> numSet = new HashSet<>();
+        int numsSum = 0, setSum = 0;
+        for (int n : nums) {
+            numsSum += n;
+            if (!numSet.contains(n)) {
+                numSet.add(n);
+                setSum += n;
+            }
+        }
+        return 2 * setSum - numsSum;
+    }
+
     // 11
     public int maxArea(int[] height) {
         int left = 0, right = height.length - 1, maxArea = 0;
