@@ -2,6 +2,18 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 169
+    public int majorityElement(int[] nums) {
+        int count = 0, candidate = 0;
+        for (int n : nums) {
+            if (count == 0) {
+                candidate = n;
+            }
+            count += n == candidate ? 1 : -1;
+        }
+        return candidate;
+    }
+
     // 136
     public int singleNumber(int[] nums) {
         Set<Integer> numSet = new HashSet<>();
