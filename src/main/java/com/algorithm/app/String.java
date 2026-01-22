@@ -2,6 +2,18 @@ package com.algorithm.app;
 
 public class String {
 
+    // LC 246
+    public boolean isStrobogrammatic(String num) {
+        char[] rotatedNum = new char[]
+        { '0', '1', '\0', '\0', '\0', '\0', '9', '\0', '8', '6', };
+        StringBuilder rotatedStr = new StringBuilder();
+        for (int i = num.length() - 1; i > -1; i--) {
+            char rotatedCurChar = rotatedNum[Character.getNumericValue(num.charAt(i))];
+            rotatedStr.append(rotatedCurChar);
+        }
+        return rotatedStr.toString().equals(num);
+    }
+    
     // LC 205
     public boolean isIsomorphic(String s, String t) {
         Map<Character, Character> stMap = new HashMap<Character, Character>();        
