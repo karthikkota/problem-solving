@@ -2,6 +2,21 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 448
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            int curIdx = Math.abs(nums[i]) - 1;
+            if (nums[curIdx] > 0)
+                nums[curIdx] *= -1;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0)
+                res.add(i + 1);
+        }
+        return res;
+    }
+    
     // LC 252
     public boolean canAttendMeetings(int[][] intervals) {
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
