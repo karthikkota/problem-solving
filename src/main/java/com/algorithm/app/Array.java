@@ -2,6 +2,34 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 2215
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        Set<Integer> nums1Set = new HashSet<>();
+        Set<Integer> nums2Set = new HashSet<>();
+        List<Integer> nums1Unq = new ArrayList<>();
+        List<Integer> nums2Unq = new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
+        for (int n1 : nums1) {
+            nums1Set.add(n1);
+        }
+        for (int n2 : nums2) {
+            nums2Set.add(n2);
+        }
+        for (int n1 : nums1Set) {
+            if (!nums2Set.contains(n1)) {
+                nums1Unq.add(n1);
+            }
+        }
+        for (int n2 : nums2Set) {
+            if (!nums1Set.contains(n2)) {
+                nums2Unq.add(n2);
+            }
+        }
+        res.add(nums1Unq);
+        res.add(nums2Unq);
+        return res;
+    }
+    
     // LC 448
     public List<Integer> findDisappearedNumbers(int[] nums) {
         List<Integer> res = new ArrayList<>();
