@@ -2,6 +2,21 @@ package com.algorithm.app;
 
 public class String {
 
+    // LC 3
+    public int lengthOfLongestSubstring(String s) {
+        int res = 0, left = 0;
+        Map<Character, Integer> lastCharIndx = new HashMap<>();
+        for (int right = 0; right < s.length(); right++) {
+            char curChar = s.charAt(right);
+            if (lastCharIndx.containsKey(curChar) && lastCharIndx.get(curChar) >= left) {
+                left = lastCharIndx.get(curChar) + 1;
+            }
+            lastCharIndx.put(curChar, right);
+            res = Math.max(res, right - left + 1);
+        }
+        return res;
+    }
+    
     // LC 246
     public boolean isStrobogrammatic(String num) {
         char[] rotatedNum = new char[]
