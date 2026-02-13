@@ -2,6 +2,27 @@ package com.algorithm.app;
 
 public class Array {
 
+    // LC 128
+    public int longestConsecutive(int[] nums) {
+        if (nums.length == 0) {
+            return nums.length;
+        }
+                
+        Arrays.sort(nums);
+        int curSeqLen = 1, longestSeqLen = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i + 1] - nums[i] == 1) {
+                curSeqLen++;
+            } else {
+                if (nums[i] != nums[i + 1]) {
+                    curSeqLen = 1;
+                }
+            }
+            longestSeqLen = Math.max(longestSeqLen, curSeqLen);
+        }
+        return Math.max(longestSeqLen, curSeqLen);
+    }
+    
     // LC 2215
     public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
         Set<Integer> nums1Set = new HashSet<>();
