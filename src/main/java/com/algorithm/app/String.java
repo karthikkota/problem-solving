@@ -2,6 +2,27 @@ package com.algorithm.app;
 
 public class String {
 
+    // LC 394
+    int startIdx = 0;
+    String decodeString(String s) {
+        StringBuilder result = new StringBuilder();
+        while (startIdx < s.length() && s.charAt(startIdx) != ']') {
+            if (!Character.isDigit(s.charAt(startIdx)))
+                result.append(s.charAt(startIdx++));
+            else {
+                int k = 0;
+                while (startIdx < s.length() && Character.isDigit(s.charAt(startIdx)))
+                    k = k * 10 + s.charAt(startIdx++) - '0';
+                startIdx++;
+                String decodedString = decodeString(s);
+                startIdx++;
+                while (k-- > 0)
+                    result.append(decodedString);
+            }
+        }
+        return result.toString();
+    }
+    
     // LC 5
     public String longestPalindrome(String s) {
         int left = 0, right = 0;
