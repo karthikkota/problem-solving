@@ -4,17 +4,16 @@ public class Stack {
 
   // LC 739
   public int[] dailyTemperatures(int[] temperatures) {
-        int n = temperatures.length;
-        int[] answer = new int[n];
-        Deque<Integer> stack = new ArrayDeque<>();
+        int[] answer = new int[temperatures.length];
+        Stack<Integer> stack = new Stack<>();
 
-        for (int currDay = 0; currDay < n; currDay++) {
-            int currentTemp = temperatures[currDay];
-            while (!stack.isEmpty() && temperatures[stack.peek()] < currentTemp) {
+        for (int curDay = 0; curDay < temperatures.length; curDay++) {
+            int curTemp = temperatures[curDay];
+            while (!stack.isEmpty() && temperatures[stack.peek()] < curTemp) {
                 int prevDay = stack.pop();
-                answer[prevDay] = currDay - prevDay;
+                answer[prevDay] = curDay - prevDay;
             }
-            stack.push(currDay);
+            stack.push(curDay);
         }
         return answer;
     }
