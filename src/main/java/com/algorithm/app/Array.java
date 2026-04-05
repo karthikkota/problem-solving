@@ -1,29 +1,6 @@
 package com.algorithm.app;
 
 public class Array {
-
-    // LC 150
-    public int evalRPN(String[] tokens) {
-        String operators = "*/+-";
-        Stack<Integer> operandStk = new Stack<>();
-        for (String s : tokens) {
-            if (operators.contains(s)) {
-                int operand2 = operandStk.pop();
-                int operand1 = operandStk.pop();
-                if (s.equals("*"))
-                    operandStk.push(operand1 * operand2);
-                if (s.equals("/"))
-                    operandStk.push(operand1 / operand2);
-                if (s.equals("+"))
-                    operandStk.push(operand1 + operand2);
-                if (s.equals("-"))
-                    operandStk.push(operand1 - operand2);
-            } else {
-                operandStk.push(Integer.parseInt(s));
-            }
-        }
-        return operandStk.pop();
-    }
     
     // LC 128
     public int longestConsecutive(int[] nums) {
