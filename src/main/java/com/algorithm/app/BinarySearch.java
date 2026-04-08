@@ -2,6 +2,28 @@ package com.algorithm.app;
 
 public class BinarySearch {
 
+  // LC 875
+  public int minEatingSpeed(int[] piles, int h) {
+        int left = 1, right = 1;
+        for (int bananaCount : piles) {
+            right = Math.max(right, bananaCount);
+        }
+
+        while (left < right) {
+            int mid = (left + right) / 2;
+            int hoursSpent = 0;
+            for (int count : piles) {
+                hoursSpent += Math.ceil((double)count / mid);
+            }
+            if (hoursSpent <= h) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return right;
+  }
+  
   // LC 153
   public int findMin(int[] nums) {
         if (nums.length == 1) return nums[0];
@@ -20,27 +42,6 @@ public class BinarySearch {
             }
         }
         return Integer.MIN_VALUE;
-    }
-  
-  public int minEatingSpeed(int[] piles, int h) {
-        int left = 1, right = 1;
-        for (int count : piles) {
-            right = Math.max(right, count);
-        }
-
-        while (left < right) {
-            int mid = (left + right) / 2;
-            int hoursSpent = 0;
-            for (int count : piles) {
-                hoursSpent += Math.ceil((double)count / mid);
-            }
-            if (hoursSpent <= h) {
-                right = mid;
-            } else {
-                left = mid + 1;
-            }
-        }
-        return right;
     }
   
   // LC 74
