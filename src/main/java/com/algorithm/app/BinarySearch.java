@@ -2,6 +2,35 @@ package com.algorithm.app;
 
 public class BinarySearch {
 
+  // LC sroted hash map
+  HashMap<String, List<Pair<Integer, String>>> hashMap;
+
+    public TimeMap() {
+        hashMap = new HashMap<>();
+    }
+
+    public void set(String key, String value, int timestamp) {
+        hashMap.computeIfAbsent(key, k -> new ArrayList<>()).add(new Pair(timestamp, value));
+    }
+
+    public String get(String key, int timestamp) {
+        if (!hashMap.containsKey(key) ||
+                hashMap.get(key).get(0).getKey() > timestamp) {
+            return "";
+        }
+
+        int left = 0, right = hashMap.get(key).size() - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (hashMap.get(key).get(mid).getKey() <= timestamp) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return hashMap.get(key).get(right).getValue();
+    }
+  
   // LC 875
   public int minEatingSpeed(int[] piles, int h) {
         int left = 1, right = 1;
