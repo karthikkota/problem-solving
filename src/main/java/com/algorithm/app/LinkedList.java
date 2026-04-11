@@ -2,6 +2,18 @@ package com.algorithm.app;
 
 public class LinkedList {
 
+  // LC 206
+  public ListNode reverseList(ListNode head) {
+        ListNode prev = null, cur = head;
+        while (cur != null) {
+            ListNode temp = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = temp;
+        }
+        return prev;
+    }
+  
   // LC 2
   public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode tempHead = new ListNode();
