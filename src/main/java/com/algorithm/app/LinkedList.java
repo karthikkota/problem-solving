@@ -2,6 +2,23 @@ package com.algorithm.app;
 
 public class LinkedList {
 
+  // LC 19
+  public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode preHead = new ListNode(-1), left = preHead, right = preHead;
+        preHead.next = head;
+        for (int pos = 0; pos <= n; pos++) {
+            right = right.next;
+        }
+
+        while (right != null) {
+            right = right.next;
+            left = left.next;
+        }
+
+        left.next = left.next.next;
+        return preHead.next;
+    }
+  
   // LC 21
   public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         ListNode preHead = new ListNode(-1), cur = preHead;
