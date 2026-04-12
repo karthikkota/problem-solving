@@ -2,6 +2,34 @@ package com.algorithm.app;
 
 public class LinkedList {
 
+  // LC 2
+  public Node copyRandomList(Node head) {
+        Map<Node, Node> copyMap = new HashMap<>();
+        Node cur = head;
+        while (cur != null) {
+            if (!copyMap.containsKey(cur)) {
+                Node curCopy = new Node(cur.val);
+                copyMap.put(cur, curCopy);
+            }
+
+            Node curCopy = copyMap.get(cur);
+            if (!copyMap.containsKey(cur.next)) {
+                Node curNextCopy = cur.next != null ? new Node(cur.next.val) : null;
+                copyMap.put(cur.next, curNextCopy);
+            }
+
+            if (!copyMap.containsKey(cur.random)) {
+                Node curRandomCopy = cur.random != null ? new Node(cur.random.val) : null;
+                copyMap.put(cur.random, curRandomCopy);
+            }
+
+            curCopy.next = copyMap.get(cur.next);
+            curCopy.random = copyMap.get(cur.random);
+            cur = cur.next;
+        }
+        return copyMap.get(head);
+    }
+  
   // LC 19
   public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode preHead = new ListNode(-1), left = preHead, right = preHead;
