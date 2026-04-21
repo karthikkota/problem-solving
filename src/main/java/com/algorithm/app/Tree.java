@@ -1,7 +1,22 @@
 package com.algorithm.app;
 
 public class Tree {
-
+    
+    // 230
+    List<Integer> bstInorderArr = new ArrayList<>();
+    public void inorder(TreeNode root) {
+        if (root != null) {
+            inorder(root.left);
+            bstInorderArr.add(root.val);
+            inorder(root.right);
+        }
+    }
+    
+    public int kthSmallest(TreeNode root, int k) {
+        inorder(root);
+        return bstInorderArr.get(k - 1);
+    }
+    
     // LC 98
     private Integer prev;
     public boolean isValidBST(TreeNode root) {
