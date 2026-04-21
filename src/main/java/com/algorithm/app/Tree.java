@@ -1,6 +1,22 @@
 package com.algorithm.app;
 
 public class Tree {
+
+    // LC 98
+    private Integer prev;
+    public boolean isValidBST(TreeNode root) {
+        prev = null;
+        return dfsInorder(root); 
+    }
+
+    private boolean dfsInorder(TreeNode root) {
+        if (root == null) return true;
+        if (!dfsInorder(root.left)) return false;
+        if (prev != null && prev >= root.val ) return false;
+        prev = root.val;
+        return dfsInorder(root.right);
+    }
+    
     // LC 965
     public boolean isUnivalTree(TreeNode root) {
         if (root == null)
