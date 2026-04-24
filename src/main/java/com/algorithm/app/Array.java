@@ -1,6 +1,35 @@
 package com.algorithm.app;
 
 public class Array {
+
+    // LC 40
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> finalList = new ArrayList<>();
+        Arrays.sort(candidates);
+        backtrack(candidates, new ArrayList<>(), finalList, target, 0);
+        return finalList;
+    }
+
+    private void backtrack(int[] candidates, List<Integer> curList, List<List<Integer>> finalList, int target,
+            int startIdx) {
+        if (target == 0) {
+            finalList.add(new ArrayList<Integer>(curList));
+            return;
+        }
+
+        if (target < 0)
+            return;
+
+        for (int i = startIdx; i < candidates.length; i++) {
+            if (candidates[i] > target)
+                break;
+            if (i > startIdx && candidates[i] == candidates[i - 1])
+                continue;
+            curList.add(candidates[i]);
+            backtrack(candidates, curList, finalList, target - candidates[i], i + 1);
+            curList.remove(curList.size() - 1);
+        }
+    }
     
     // LC 128
     public int longestConsecutive(int[] nums) {
