@@ -2,6 +2,34 @@ package com.algorithm.app;
 
 public class Backtracking {
 
+    // LC 131
+    public List<List<String>> partition(String s) {
+        List<List<String>> res = new ArrayList<>();
+        backtrack(res, new ArrayList<>(), s, 0);
+        return res;
+    }
+
+    private void backtrack(List<List<String>> res, List<String> curList, String s, int startIdx) {
+        if (startIdx >= s.length())
+            res.add(new ArrayList<>(curList));
+
+        for (int i = startIdx; i < s.length(); i++) {
+            if (isPalindrome(s, startIdx, i)) {
+                curList.add(s.substring(startIdx, i + 1));
+                backtrack(res, curList, s, i + 1);
+                curList.remove(curList.size() - 1);
+            }
+        }
+    }
+
+    boolean isPalindrome(String s, int low, int high) {
+        while (low < high) {
+            if (s.charAt(low++) != s.charAt(high--))
+                return false;
+        }
+        return true;
+    }
+    
     // LC 79
     private char[][] board;
     private int rowCount;
