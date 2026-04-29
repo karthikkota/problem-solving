@@ -1,6 +1,46 @@
 package com.algorithm.app;
 
 public class Backtracking {
+
+    // LC 79
+    private char[][] board;
+    private int rowCount;
+    private int colCount;
+
+    public boolean exist(char[][] board, String word) {
+        this.rowCount = board.length;
+        this.colCount = board[0].length;
+        this.board = board;
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < colCount; col++) {
+                if (backtrack(row, col, word, 0))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean backtrack(int row, int col, String word, int startIdx) {
+        if (startIdx >= word.length())
+            return true;
+        if (row < 0 ||
+                col < 0 ||
+                row >= rowCount ||
+                col >= colCount ||
+                board[row][col] != word.charAt(startIdx))
+            return false;
+
+        board[row][col] = '#';
+        if (backtrack(row + 1, col, word, startIdx + 1) ||
+                backtrack(row - 1, col, word, startIdx + 1) ||
+                backtrack(row, col + 1, word, startIdx + 1) ||
+                backtrack(row, col - 1, word, startIdx + 1)) {
+            return true;
+        }
+        board[row][col] = word.charAt(startIdx);
+        return false;
+    }
+    
     // LC 40
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> finalList = new ArrayList<>();
