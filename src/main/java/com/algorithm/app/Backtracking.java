@@ -2,6 +2,31 @@ package com.algorithm.app;
 
 public class Backtracking {
 
+    // 17
+    private List<String> combinations = new ArrayList<>();
+    private String[] letters = {
+            "", "", "abc", "def", "ghi", "jkl", "mno", "qprs", "tuv", "wxyz"
+    };
+
+    public List<String> letterCombinations(String digits) {
+        backtrack(digits, new StringBuilder(), 0);
+        return combinations;
+    }
+
+    private void backtrack(String digits, StringBuilder sBuilder, int startIdx) {
+        if (sBuilder.length() == digits.length()) {
+            combinations.add(sBuilder.toString());
+            return;
+        }
+
+        String curLetters = letters[digits.charAt(startIdx) - '0'];
+        for (char l : curLetters.toCharArray()) {
+            sBuilder.append(l);
+            backtrack(digits, sBuilder, startIdx + 1);
+            sBuilder.deleteCharAt(sBuilder.length() - 1);
+        }
+    }
+    
     // LC 131
     public List<List<String>> partition(String s) {
         List<List<String>> res = new ArrayList<>();
