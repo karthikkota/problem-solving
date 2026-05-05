@@ -4,6 +4,19 @@ import java.util.*;
 
 public class Array {
 
+  // LC 219
+  public boolean containsNearbyDuplicate(int[] nums, int k) {
+        Set<Integer> numSet = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (numSet.contains(nums[i]))
+                return true;
+            numSet.add(nums[i]);
+            if (numSet.size() > k)
+                numSet.remove(nums[i - k]);
+        }
+        return false;
+    }
+  
   // LC 40
   public List<List<Integer>> combinationSum2(int[] candidates, int target) {
     List<List<Integer>> finalList = new ArrayList<>();
