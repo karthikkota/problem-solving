@@ -22,11 +22,8 @@ public class Dynamic {
 
         for (int i = 1; i <= word1Len; i++) {
             for (int j = 1; j <= word2Len; j++) {
-                if (
-                    word2.charAt(j - 1) == word1.charAt(i - 1)
-                ) {
-                    dp[i][j] = dp[i - 1][j -
-                        1];
+                if (word2.charAt(j - 1) == word1.charAt(i - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
                 } else {
                     dp[i][j] = Math.min(
                         dp[i - 1][j],
@@ -34,14 +31,13 @@ public class Dynamic {
                             dp[i][j - 1],
                             dp[i - 1][j - 1]
                         )
-                    ) +
-                    1;
+                    ) + 1;
                 }
             }
         }
         return dp[word1Len][word2Len];
     }
-    
+
     // LC 62
     public int uniquePaths(int m, int n) {
         int[][] dp = new int[m][n];
@@ -56,7 +52,7 @@ public class Dynamic {
         }
         return dp[m - 1][n - 1];
     }
-    
+
     // LC 53
     public int maxSubArray(int[] nums) {
         int curSum = nums[0], maxSum = nums[0];
@@ -68,10 +64,10 @@ public class Dynamic {
         }
         return maxSum;
     }
-    
+
     // LC 22
     public List<String> generateParanthesis(int n) {
-        List<String> res = new ArrayList();
+        List<String> res = new ArrayList<>();
         backtrack(res, new StringBuilder(), 0, 0, n);
         return res;
     }
@@ -85,13 +81,13 @@ public class Dynamic {
         if (leftCount < n) {
             curStr.append("(");
             backtrack(res, curStr, leftCount + 1, rightCount, n);
-            curStr.deleteChatAt(cutStr.length() - 1);
+            curStr.deleteCharAt(curStr.length() - 1);
         }
 
         if (leftCount > rightCount) {
             curStr.append(")");
-            backtrack(res, cutStr, leftCount, rightCount + 1, n);
-            cutStr.deleteCharAt(cutStr.length() - 1);
+            backtrack(res, curStr, leftCount, rightCount + 1, n);
+            curStr.deleteCharAt(curStr.length() - 1);
         }
     }
 
@@ -115,7 +111,7 @@ public class Dynamic {
         }
         return s.substring(start, end + 1);
     }
-    
+
     // LC 392
     public boolean isSubsequence(String s, String t) {
         int sLen = s.length(), tLen = t.length();
@@ -135,9 +131,9 @@ public class Dynamic {
         }
         return false;
     }
-    
+
     // LC 392 2-pointer
-    public boolean isSubsequence(String s, String t) {
+    public boolean isSubsequence2Pointer(String s, String t) {
         int left = 0, right = 0;
         while (left < s.length() && right < t.length()) {
             if (s.charAt(left) == t.charAt(right)) {
@@ -147,18 +143,20 @@ public class Dynamic {
         }
         return left == s.length();
     }
-    
+
     // LC 392 Recursive
     String source, target;
     int leftBound, rightBound;
 
-    public boolean isSubsequence(String s, String t) {
-        source = s; target = t;
-        leftBound = s.length(); rightBound = t.length();
-        return isSubsequence(0, 0);
+    public boolean isSubsequenceRecursive(String s, String t) {
+        source = s;
+        target = t;
+        leftBound = s.length();
+        rightBound = t.length();
+        return isSubsequenceHelper(0, 0);
     }
 
-    private boolean isSubsequence(int left, int right) {
+    private boolean isSubsequenceHelper(int left, int right) {
         if (left == leftBound)
             return true;
         if (right == rightBound)
@@ -167,30 +165,19 @@ public class Dynamic {
         if (source.charAt(left) == target.charAt(right))
             left++;
         right++;
-        return isSubsequence(left, right);
+        return isSubsequenceHelper(left, right);
     }
-    
+
     // LC 118
     public int climbStairs(int n) {
         if (n == 0) return 0;
         if (n == 1) return 1;
         if (n == 2) return 2;
         int[] mem = new int[n + 1];
+        mem[1] = 1;
+        mem[2] = 2;
         for (int i = 3; i <= n; i++) {
-            mem[i] = mem[i - 1] + mem[i + 1];
-        }
-        return mem[n];
-    }
-    
-    // LC 70
-    public int climbStairs(int n) {
-        if (n == 0) return 0;
-        if (n == 1) return 1;
-        if (n == 2) return 2;
-
-        int[] mem = new int[n + 1];
-        for (int i = 3; i <= n; i++) {
-            mem[i] = mem[i - 1] + mem[i + 1];
+            mem[i] = mem[i - 1] + mem[i - 2];
         }
         return mem[n];
     }

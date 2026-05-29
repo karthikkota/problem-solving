@@ -23,7 +23,7 @@ public class Tree {
         root.right = dfs(preorder, mid + 1, right);
         return root;
     }
-    
+
     // 230
     List<Integer> bstInorderArr = new ArrayList<>();
     public void inorder(TreeNode root) {
@@ -33,27 +33,27 @@ public class Tree {
             inorder(root.right);
         }
     }
-    
+
     public int kthSmallest(TreeNode root, int k) {
         inorder(root);
         return bstInorderArr.get(k - 1);
     }
-    
+
     // LC 98
     private Integer prev;
     public boolean isValidBST(TreeNode root) {
         prev = null;
-        return dfsInorder(root); 
+        return dfsInorder(root);
     }
 
     private boolean dfsInorder(TreeNode root) {
         if (root == null) return true;
         if (!dfsInorder(root.left)) return false;
-        if (prev != null && prev >= root.val ) return false;
+        if (prev != null && prev >= root.val) return false;
         prev = root.val;
         return dfsInorder(root.right);
     }
-    
+
     // LC 965
     public boolean isUnivalTree(TreeNode root) {
         if (root == null)
@@ -72,7 +72,7 @@ public class Tree {
         }
         return true;
     }
-    
+
     // LC 938
     public int rangeSumBST(TreeNode root, int low, int high) {
         int res = 0;
@@ -91,7 +91,7 @@ public class Tree {
         }
         return res;
     }
-    
+
     // LC 897
     TreeNode cur;
     public TreeNode increasingBST(TreeNode root) {
@@ -111,7 +111,7 @@ public class Tree {
         cur = root;
         rightOnlyInorderTree(root.right);
     }
-    
+
     // LC 617 Iterative
     public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
         if (root1 == null)
@@ -137,7 +137,7 @@ public class Tree {
         }
         return root1;
     }
-    
+
     // LC 590 Iterative
     public List<Integer> postorder(Node root) {
         List<Integer> res = new ArrayList();
@@ -155,7 +155,7 @@ public class Tree {
         Collections.reverse(res);
         return res;
     }
-    
+
     // LC 501 Iterative
     public int[] findMode(TreeNode root) {
         Map<Integer, Integer> freqC = new HashMap();
@@ -183,7 +183,7 @@ public class Tree {
         }
         return res.stream().mapToInt(Integer::intValue).toArray();
     }
-    
+
     // LC 404 Iterative
     public int sumOfLeftLeaves(TreeNode root) {
         int sum = 0;
@@ -203,7 +203,7 @@ public class Tree {
         }
         return sum;
     }
-    
+
     // LC 270 Iterative
     public int closestValue(TreeNode root, double target) {
         Stack<TreeNode> stk = new Stack();
@@ -224,7 +224,7 @@ public class Tree {
         }
         return (int) prev;
     }
-    
+
     // LC 257 Iterative
     public List<String> binaryTreePaths(TreeNode root) {
         LinkedList<String> paths = new LinkedList();
@@ -237,7 +237,7 @@ public class Tree {
         TreeNode node;
         String path;
 
-        while(!stk.isEmpty()) {
+        while (!stk.isEmpty()) {
             node = stk.pop();
             path = pth.pop();
             if (node.left == null && node.right == null) paths.add(path);
@@ -251,7 +251,9 @@ public class Tree {
                 pth.add(path + "->" + Integer.toString(node.right.val));
             }
         }
-        
+        return paths;
+    }
+
     // LC 226 Iterative
     public TreeNode invertTree(TreeNode root) {
         if (root == null)
@@ -271,7 +273,7 @@ public class Tree {
         }
         return root;
     }
-    
+
     // LC 145 Iterative
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList();
@@ -299,7 +301,7 @@ public class Tree {
         }
         return res;
     }
-    
+
     // LC 144 Iterative
     public List<Integer> preorderTraversal(TreeNode root) {
         Stack<TreeNode> stk = new Stack();
@@ -321,7 +323,7 @@ public class Tree {
         }
         return res;
     }
-    
+
     // LC 111 Iterative
     public int minDepth(TreeNode root) {
         if (root == null) return 0;
@@ -345,7 +347,7 @@ public class Tree {
         }
         return -1;
     }
-    
+
     // LC 104 Iterative
     public int maxDepth(TreeNode root) {
         if (root == null)
@@ -381,7 +383,7 @@ public class Tree {
             this.value = value;
         }
     }
-    
+
     // LC 101 Iterative
     public boolean isSymmetric(TreeNode root) {
         Queue<TreeNode> q = new LinkedList();
@@ -404,7 +406,7 @@ public class Tree {
         }
         return true;
     }
-    
+
     // LC 94 Iterative
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList();
@@ -421,7 +423,7 @@ public class Tree {
         }
         return res;
     }
-    
+
     // LC 997
     public int findJudge(int n, int[][] trust) {
         if (trust.length < n - 1)
@@ -439,7 +441,7 @@ public class Tree {
         }
         return -1;
     }
-    
+
     // LC 2689
     StringBuilder res = new StringBuilder();
     public char getKthCharacter(RopeTreeNode root, int k) {
@@ -453,7 +455,7 @@ public class Tree {
         buildVals(root.left);
         buildVals(root.right);
     }
-    
+
     // LC 2331
     public boolean evaluateTree(TreeNode root) {
         if (root.val == 0)
@@ -468,52 +470,42 @@ public class Tree {
             return leftEval || rightEval;
         return leftEval && rightEval;
     }
-    
-    // LC 590
-    public List<Integer> postorder(Node root) {
-        List<Integer> vals = new ArrayList();
-        postorder(root, vals);
-        return vals;
-    }
 
-    private void postorder(Node root, List<Integer> vals) {
-        if (root!=null) {
+    // LC 590
+    public List<Integer> postorder(Node root, List<Integer> vals) {
+        if (root != null) {
             for (Node n : root.children) {
                 postorder(n, vals);
             }
             vals.add(root.val);
         }
-    }
-    
-    // LC 965
-    public boolean isUnivalTree(TreeNode root) {
-        if (root == null)  return false;
-        return isUnivalTree(root, root.val);
+        return vals;
     }
 
-    private boolean isUnivalTree(TreeNode root, int val) {
-        if (root == null)  return true;
-        if (root.val != val)  return false;
+    // LC 965
+    public boolean isUnivalTree(TreeNode root, int val) {
+        if (root == null) return true;
+        if (root.val != val) return false;
         return isUnivalTree(root.left, val) && isUnivalTree(root.right, val);
     }
-    
+
     // LC 589
     public List<Integer> preorder(Node root) {
         List<Integer> list = new ArrayList();
-        preorder(root, list);
+        preorderHelper(root, list);
         return list;
     }
 
-    private void preorder(Node root, List<Integer> values) {
+    private void preorderHelper(Node root, List<Integer> values) {
         if (root == null)
             return;
 
         values.add(root.val);
         for (Node n : root.children) {
-            preorder(n, values);
+            preorderHelper(n, values);
         }
     }
-    
+
     // LC 404
     public int sumOfLeftLeaves(TreeNode root) {
         if (root == null)
@@ -528,7 +520,7 @@ public class Tree {
         sum += sumOfLeftLeaves(root.right);
         return sum;
     }
-    
+
     // LC 700
     public TreeNode searchBST(TreeNode root, int val) {
         if (root == null || root.val == val) return root;
@@ -540,13 +532,13 @@ public class Tree {
     }
 
     // LC 257
-    public List<String> binaryTreePaths(TreeNode root) {
+    public List<String> binaryTreePathsRecursive(TreeNode root) {
         List<String> res = new ArrayList();
-        buildPaths(root, res, "");
+        buildPathsHelper(root, res, "");
         return res;
     }
 
-    private void buildPaths(TreeNode root, List<String> res, String path) {
+    private void buildPathsHelper(TreeNode root, List<String> res, String path) {
         if (root == null)
             return;
 
@@ -556,17 +548,17 @@ public class Tree {
             return;
         }
 
-        buildPaths(root.left, res, path);
-        buildPaths(root.right, res, path);
+        buildPathsHelper(root.left, res, path);
+        buildPathsHelper(root.right, res, path);
     }
-    
+
     // LC 222
     public int countNodes(TreeNode root) {
         if (root == null)
-          return 0;
+            return 0;
         return 1 + countNodes(root.right) + countNodes(root.left);
     }
-    
+
     // LC 112
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if (root == null)
@@ -578,7 +570,7 @@ public class Tree {
 
         return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
     }
-    
+
     // LC 108
     int[] nums;
     public TreeNode sortedArrayToBST(int[] nums) {
@@ -597,15 +589,15 @@ public class Tree {
         return root;
 
     }
-    
+
     // LC 104
-    public int maxDepth(TreeNode root) {
+    public int maxDepthRecursive(TreeNode root) {
         if (root == null)
             return 0;
 
-        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+        return 1 + Math.max(maxDepthRecursive(root.left), maxDepthRecursive(root.right));
     }
-    
+
     // LC 100
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null && q == null)
@@ -618,29 +610,29 @@ public class Tree {
             return false;
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
-    
+
     // LC 94
     List<Integer> list = new ArrayList();
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> inorderTraversalRecursive(TreeNode root) {
         if (root != null) {
-            inorderTraversal(root.left);
+            inorderTraversalRecursive(root.left);
             list.add(root.val);
-            inorderTraversal(root.right);
+            inorderTraversalRecursive(root.right);
         }
         return list;
     }
-    
+
     // LC 700
-    public TreeNode searchBST(TreeNode root, int val) {
+    public TreeNode searchBSTRecursive(TreeNode root, int val) {
         if (root == null || root.val == val)
             return root;
 
         if (root.val < val)
-            return searchBST(root.right, val);
+            return searchBSTRecursive(root.right, val);
         else
-            return searchBST(root.left, val);
+            return searchBSTRecursive(root.left, val);
     }
-    
+
     int minDif = Integer.MAX_VALUE;
     TreeNode prev = null;
 

@@ -2,8 +2,8 @@ package com.algorithm.app;
 
 public class Stack {
 
-  // LC 739
-  public int[] dailyTemperatures(int[] temperatures) {
+    // LC 739
+    public int[] dailyTemperatures(int[] temperatures) {
         int[] answer = new int[temperatures.length];
         Stack<Integer> stack = new Stack<>();
 
@@ -18,7 +18,7 @@ public class Stack {
         return answer;
     }
 
-  // LC 150
+    // LC 150
     public int evalRPN(String[] tokens) {
         String operators = "*/+-";
         Stack<Integer> operandStk = new Stack<>();

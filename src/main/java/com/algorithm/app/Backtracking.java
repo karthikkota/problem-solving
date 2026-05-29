@@ -26,7 +26,7 @@ public class Backtracking {
             sBuilder.deleteCharAt(sBuilder.length() - 1);
         }
     }
-    
+
     // LC 131
     public List<List<String>> partition(String s) {
         List<List<String>> res = new ArrayList<>();
@@ -54,7 +54,7 @@ public class Backtracking {
         }
         return true;
     }
-    
+
     // LC 79
     private char[][] board;
     private int rowCount;
@@ -93,7 +93,7 @@ public class Backtracking {
         board[row][col] = word.charAt(startIdx);
         return false;
     }
-    
+
     // LC 40
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> finalList = new ArrayList<>();
@@ -102,8 +102,8 @@ public class Backtracking {
         return finalList;
     }
 
-  private void backtrack(int[] candidates, List<Integer> curList, List<List<Integer>> finalList, int target,
-            int startIdx) {
+    private void backtrack(int[] candidates, List<Integer> curList, List<List<Integer>> finalList, int target,
+                          int startIdx) {
         if (target == 0) {
             finalList.add(new ArrayList<Integer>(curList));
             return;
@@ -123,8 +123,8 @@ public class Backtracking {
         }
     }
 
-  // LC 46
-  public List<List<Integer>> permute(int[] nums) {
+    // LC 46
+    public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> permutations = new ArrayList<>();
         backtrack(nums, new ArrayList<>(), permutations);
         return permutations;

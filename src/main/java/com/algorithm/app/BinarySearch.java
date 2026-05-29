@@ -2,8 +2,8 @@ package com.algorithm.app;
 
 public class BinarySearch {
 
-  // LC sroted hash map
-  HashMap<String, List<Pair<Integer, String>>> hashMap;
+    // LC sorted hash map
+    HashMap<String, List<Pair<Integer, String>>> hashMap;
 
     public TimeMap() {
         hashMap = new HashMap<>();
@@ -30,9 +30,9 @@ public class BinarySearch {
         }
         return hashMap.get(key).get(right).getValue();
     }
-  
-  // LC 875
-  public int minEatingSpeed(int[] piles, int h) {
+
+    // LC 875
+    public int minEatingSpeed(int[] piles, int h) {
         int left = 1, right = 1;
         for (int bananaCount : piles) {
             right = Math.max(right, bananaCount);
@@ -42,7 +42,7 @@ public class BinarySearch {
             int mid = (left + right) / 2;
             int hoursSpent = 0;
             for (int count : piles) {
-                hoursSpent += Math.ceil((double)count / mid);
+                hoursSpent += Math.ceil((double) count / mid);
             }
             if (hoursSpent <= h) {
                 right = mid;
@@ -51,9 +51,9 @@ public class BinarySearch {
             }
         }
         return right;
-  }
-  
-  // LC 153
+    }
+
+    // LC 153
     public int findMin(int[] nums) {
         int left = 0, right = nums.length - 1;
         while (left < right) {
@@ -66,9 +66,9 @@ public class BinarySearch {
         }
         return nums[left];
     }
-  
-  // LC 74
-  public boolean searchMatrix(int[][] matrix, int target) {
+
+    // LC 74
+    public boolean searchMatrix(int[][] matrix, int target) {
         int m = matrix.length, n = matrix[0].length;
         int l = 0, r = m * n - 1;
         int midIdx, curElem;
@@ -85,9 +85,9 @@ public class BinarySearch {
         }
         return false;
     }
-  
-  // LC 704
-  public int search(int[] nums, int target) {
+
+    // LC 704
+    public int search(int[] nums, int target) {
         int left = 0, right = nums.length - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2;

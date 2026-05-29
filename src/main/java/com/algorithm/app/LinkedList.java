@@ -2,8 +2,8 @@ package com.algorithm.app;
 
 public class LinkedList {
 
-  // LC 2
-  public Node copyRandomList(Node head) {
+    // LC 2
+    public Node copyRandomList(Node head) {
         Map<Node, Node> copyMap = new HashMap<>();
         Node cur = head;
         while (cur != null) {
@@ -29,9 +29,9 @@ public class LinkedList {
         }
         return copyMap.get(head);
     }
-  
-  // LC 19
-  public ListNode removeNthFromEnd(ListNode head, int n) {
+
+    // LC 19
+    public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode preHead = new ListNode(-1), left = preHead, right = preHead;
         preHead.next = head;
         for (int pos = 0; pos <= n; pos++) {
@@ -46,9 +46,9 @@ public class LinkedList {
         left.next = left.next.next;
         return preHead.next;
     }
-  
-  // LC 21
-  public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+
+    // LC 21
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         ListNode preHead = new ListNode(-1), cur = preHead;
         while (list1 != null && list2 != null) {
             if (list1.val <= list2.val) {
@@ -64,9 +64,9 @@ public class LinkedList {
         cur.next = list1 == null ? list2 : list1;
         return preHead.next;
     }
-  
-  // LC 206
-  public ListNode reverseList(ListNode head) {
+
+    // LC 206
+    public ListNode reverseList(ListNode head) {
         ListNode prev = null, cur = head;
         while (cur != null) {
             ListNode temp = cur.next;
@@ -76,9 +76,9 @@ public class LinkedList {
         }
         return prev;
     }
-  
-  // LC 2
-  public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+
+    // LC 2
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode tempHead = new ListNode();
         ListNode cur = tempHead;
         int carry = 0;
@@ -99,8 +99,8 @@ public class LinkedList {
 
     public boolean hasCycle(ListNode head) {
         if (head == null) return false;
-        slowPtr = head;
-        speedPtr = head;
+        ListNode slowPtr = head;
+        ListNode speedPtr = head;
         while (speedPtr != null) {
             if (slowPtr == speedPtr) return true;
             slowPtr = slowPtr.next;

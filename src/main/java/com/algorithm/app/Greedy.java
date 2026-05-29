@@ -37,7 +37,7 @@ public class Greedy {
         }
         return true;
     }
-    
+
     // LC 905
     public int[] sortArrayByParity(int[] nums) {
         int str = 0, end = nums.length - 1;
@@ -54,7 +54,7 @@ public class Greedy {
         }
         return nums;
     }
-    
+
     // LC 1013
     public boolean canThreePartsEqualSum(int[] arr) {
         int sum = 0, count = 0, curSum = 0;
@@ -111,7 +111,7 @@ public class Greedy {
     public String largestOddNumber(String num) {
         for (int i = num.length() - 1; i > -1; i--) {
             if (Character.getNumericValue(num.charAt(i)) % 2 != 0)
-                return num.substring(0, i+1);
+                return num.substring(0, i + 1);
         }
         return "";
     }
@@ -127,7 +127,7 @@ public class Greedy {
         }
 
         for (int j = colors.length - 1; j > -1; j--) {
-            if(colors[0] != colors[j]) {
+            if (colors[0] != colors[j]) {
                 maxDict = Math.max(maxDict, j);
             }
         }
@@ -146,5 +146,4 @@ public class Greedy {
         }
         return number.substring(0, indexToExclude) + number.substring(indexToExclude + 1, number.length());
     }
-
 }

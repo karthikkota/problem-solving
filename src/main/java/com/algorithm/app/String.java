@@ -22,7 +22,7 @@ public class String {
         }
         return result.toString();
     }
-    
+
     // LC 5
     public String longestPalindrome(String s) {
         int left = 0, right = 0;
@@ -45,7 +45,7 @@ public class String {
         }
         return right - left - 1;
     }
-    
+
     // LC 3
     public int lengthOfLongestSubstring(String s) {
         int res = 0, left = 0;
@@ -60,7 +60,7 @@ public class String {
         }
         return res;
     }
-    
+
     // LC 246
     public boolean isStrobogrammatic(String num) {
         char[] rotatedNum = new char[]
@@ -72,10 +72,10 @@ public class String {
         }
         return rotatedStr.toString().equals(num);
     }
-    
+
     // LC 205
     public boolean isIsomorphic(String s, String t) {
-        Map<Character, Character> stMap = new HashMap<Character, Character>();        
+        Map<Character, Character> stMap = new HashMap<Character, Character>();
         for (int i = 0; i < s.length(); i++) {
             char sChar = s.charAt(i);
             char tChar = t.charAt(i);
@@ -89,26 +89,26 @@ public class String {
         }
         return true;
     }
-    
+
     // LC 168
     public String convertToTitle(int columnNumber) {
         StringBuilder colTitle = new StringBuilder();
         while (columnNumber > 0) {
             columnNumber--;
-            colTitle.append((char)( 'A' + ((columnNumber) % 26)));
+            colTitle.append((char)('A' + ((columnNumber) % 26)));
             columnNumber /= 26;
         }
         return colTitle.reverse().toString();
     }
-    
+
     // LC 657
     public boolean judgeCircle(String moves) {
-      int x = 0, y = 0;
-      for (char m : moves.toCharArray()) {
-          if (m == 'L') x--;
-          if (m == 'R') x++;
-          if (m == 'U') y++;
-          if (m == 'D') y--;
+        int x = 0, y = 0;
+        for (char m : moves.toCharArray()) {
+            if (m == 'L') x--;
+            if (m == 'R') x++;
+            if (m == 'U') y++;
+            if (m == 'D') y--;
         }
         return x == 0 && y == 0;
     }
