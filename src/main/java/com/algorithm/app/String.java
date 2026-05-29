@@ -112,4 +112,17 @@ public class String {
         }
         return x == 0 && y == 0;
     }
+
+    // LC 58
+    public int lengthOfLastWord(String s) {
+        int lastWordLen = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) != ' ') {
+                lastWordLen++;
+            } else if (lastWordLen > 0) {
+                return lastWordLen;
+            }
+        }
+        return lastWordLen;
+    }
 }
