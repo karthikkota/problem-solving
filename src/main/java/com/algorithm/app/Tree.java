@@ -2,6 +2,24 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 199
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> rightView = new ArrayList<>();
+        if (root == null) return rightView;
+        Deque<TreeNode> qu = new ArrayDeque<>();
+        qu.offer(root);
+        while (!qu.isEmpty()) {
+            int levelSize = qu.size();
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode curNode = qu.poll();
+                if (i == levelSize - 1) rightView.add(curNode.val);
+                if (curNode.left != null) qu.offer(curNode.left);
+                if (curNode.right != null) qu.offer(curNode.right);
+            }            
+        }
+        return rightView;
+    }
+
     // LC 105
     int preorderIdx = 0;
     Map<Integer, Integer> inorderMap = new HashMap<>();
