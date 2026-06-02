@@ -2,6 +2,33 @@ package com.algorithm.app;
 
 public class Tree {
 
+    // LC 103
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+
+        boolean leftToRight = true;        
+        Deque<TreeNode> qu = new ArrayDeque<>();
+        
+        qu.offer(root);
+        while (!qu.isEmpty()) {
+            int size = qu.size();
+            List<Integer> level = new ArrayList<>();
+            
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = qu.peek();
+                if (cur.left != null) qu.offer(cur.left);
+                if (cur.right != null) qu.offer(cur.right);
+                if (leftToRight) level.addLast(qu.poll().val);
+                else level.addFirst(qu.poll().val);
+            }
+
+            res.add(level);
+            leftToRight = !leftToRight;
+        }
+        return res;
+    }
+    
     // LC 199
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> rightView = new ArrayList<>();
