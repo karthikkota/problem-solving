@@ -1,6 +1,67 @@
 package com.algorithm.app;
 
 public class Tree {
+    
+    // LC 98. Validate Binary Search Tree
+    TreeNode prev;
+    public boolean isValidBST(TreeNode root) {
+        return dfsInorder(root);
+    }
+    
+    private boolean dfsInorder(TreeNode root) {
+        if (root == null) return true;
+        if (!dfsInorder(root.left)) return false;
+        if (prev != null && prev.val >= root.val) return false;
+        prev = root;
+        return dfsInorder(root.right);
+    }
+
+    public boolean isValidBST(TreeNode root) {
+        Deque<TreeNode> stk = new ArrayDeque<>();
+        if (root == null) return true;
+        TreeNode prev = null;
+        while (!stk.isEmpty() || root != null) {
+            while (root != null) {
+                stk.push(root);
+                root = root.left;
+            }
+            root = stk.pop();
+            if (prev != null && prev.val >= root.val) return false;
+            prev = root;
+            root = root.right;
+        }
+        return true;
+    }
+
+    // LC 230. Kth Smallest Element in a BST
+    List<Integer> bstInorderArr = new ArrayList<>();
+    public void inorder(TreeNode root) {
+        if (root != null) {
+            inorder(root.left);
+            bstInorderArr.add(root.val);
+            inorder(root.right);
+        }
+    }
+    
+    public int kthSmallest(TreeNode root, int k) {
+        inorder(root);
+        return bstInorderArr.get(k - 1);
+    }
+
+    public int kthSmallest(TreeNode root, int k) {
+        Deque<TreeNode> stk = new ArrayDeque<>();
+        while (root != null || !stk.isEmpty()) {
+            while (root != null) {
+                stk.push(root);
+                root = root.left;
+            }
+            root = stk.pop();
+            k--;
+            if (k == 0) return root.val;
+            root = root.right;
+        }
+        return -1;
+    }
 
     // LC 103
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
