@@ -178,6 +178,43 @@ public class Tree {
         return true;
     }
 
+    // LC 102. Binary Tree Level Order Traversal
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> levels = new ArrayList<>();
+        if (root == null) return levels;
+        Deque<TreeNode> qu = new ArrayDeque<>();
+
+        qu.offer(root);
+        while (!qu.isEmpty()) {
+            List<Integer> curLevel = new ArrayList<>();
+            int curLevelLen = qu.size(), itr = 0;
+            while (itr < curLevelLen) {
+                TreeNode cur = qu.poll();
+                curLevel.add(cur.val);
+                if (cur.left != null) qu.offer(cur.left);
+                if (cur.right != null) qu.offer(cur.right);
+                itr++;
+            }
+            levels.add(curLevel);
+        }
+        return levels;
+    }
+
+    List<List<Integer>> levels;
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        levels = new ArrayList<>();
+        if (root == null) return levels;
+        dfsHelper(root, 0);
+        return levels;
+    }
+
+    private void dfsHelper(TreeNode node, int level) {
+        if (levels.size() == level) levels.add(new ArrayList<>());
+        levels.get(level).add(node.val);
+        if (node.left != null) dfsHelper(node.left, level + 1);
+        if (node.right != null) dfsHelper(node.right, level + 1);
+    }
+    
     // LC 199. Binary Tree Right Side View
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> rightView = new ArrayList<>();
