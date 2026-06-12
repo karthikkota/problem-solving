@@ -3,333 +3,186 @@ package com.algorithm.app;
 import java.util.*;
 
 public class Array {
-
-    // LC 219
-    public boolean containsNearbyDuplicate(int[] nums, int k) {
-        Set<Integer> numSet = new HashSet<>();
+    // 1. Two Sum
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> numIdxMap = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            if (numSet.contains(nums[i]))
-                return true;
-            numSet.add(nums[i]);
-            if (numSet.size() > k)
-                numSet.remove(nums[i - k]);
+            int curCompl = target - nums[i];
+            if (numIdxMap.containsKey(curCompl)) {
+                return new int[] { i, numIdxMap.get(curCompl) };
+            }
+            numIdxMap.put(nums[i], i);
+        }
+        return new int[] {};
+    }
+
+    // 242. Valid Anagram
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) return false;
+        int[] charCount = new int[26];
+        for (char c : s.toCharArray()) {
+            charCount[c - 'a']++;
+        }
+
+        for (char c : t.toCharArray()) {
+            charCount[c - 'a']--;
+            if (charCount[c - 'a'] < 0)
+                return false;
+        }
+        return true;
+    }
+
+    // Contains Duplicate
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> hashSet = new HashSet<>();
+        for (int n : nums) {
+            if (!hashSet.add(n)) return true;
         }
         return false;
     }
 
-    // LC 40
-    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> finalList = new ArrayList<>();
-        Arrays.sort(candidates);
-        backtrack(candidates, new ArrayList<>(), finalList, target, 0);
-        return finalList;
+    // 121. Best Time to Buy and Sell Stock
+    public int maxProfit(int[] prices) {
+        int minPrice = prices[0], maxProfit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            int curProfit = prices[i] - minPrice;
+            maxProfit = curProfit > maxProfit ? curProfit : maxProfit;
+            minPrice = minPrice > prices[i] ? prices[i] : minPrice;
+        }
+        return maxProfit;
     }
 
-    private void backtrack(int[] candidates, List<Integer> curList, List<List<Integer>> finalList, int target,
-                          int startIdx) {
-        if (target == 0) {
-            finalList.add(new ArrayList<>(curList));
-            return;
-        }
-        if (target < 0) {
-            return;
-        }
-        for (int i = startIdx; i < candidates.length; i++) {
-            if (candidates[i] > target) {
-                break;
-            }
-            if (i > startIdx && candidates[i] == candidates[i - 1]) {
-                continue;
-            }
-            curList.add(candidates[i]);
-            backtrack(candidates, curList, finalList, target - candidates[i], i + 1);
-            curList.remove(curList.size() - 1);
-        }
-    }
 
-    // LC 128
-    public int longestConsecutive(int[] nums) {
-        Set<Integer> hashSet = new HashSet<>();
+    // 53. Maximum Subarray
+    public int maxSubArray(int[] nums) {
+        int maxSum = Integer.MIN_VALUE, curSum = 0;
         for (int num : nums) {
-            hashSet.add(num);
+            if (curSum < 0) curSum = num;
+            else curSum += num;
+            maxSum = Math.max(curSum, maxSum);
         }
-        int res = 0;
-        for (int n : hashSet) {
-            if (!hashSet.contains(n - 1)) {
-                int curNum = n;
-                int curStreak = 1;
-                while (hashSet.contains(curNum + 1)) {
-                    curNum += 1;
-                    curStreak += 1;
-                }
-                res = Math.max(res, curStreak);
-            }
-        }
-        return res;
+        return maxSum;
     }
+    
+    // 167. Two Sum II - Input Array Is Sorted
+    // Sort and 2 pointer
+    private List<List<Integer>> res;
 
-    // LC 2215
-    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
-        Set<Integer> nums1Set = new HashSet<>();
-        Set<Integer> nums2Set = new HashSet<>();
-        List<Integer> nums1Unq = new ArrayList<>();
-        List<Integer> nums2Unq = new ArrayList<>();
-        List<List<Integer>> res = new ArrayList<>();
-        for (int n1 : nums1) {
-            nums1Set.add(n1);
-        }
-        for (int n2 : nums2) {
-            nums2Set.add(n2);
-        }
-        for (int n1 : nums1Set) {
-            if (!nums2Set.contains(n1)) {
-                nums1Unq.add(n1);
-            }
-        }
-        for (int n2 : nums2Set) {
-            if (!nums1Set.contains(n2)) {
-                nums2Unq.add(n2);
-            }
-        }
-        res.add(nums1Unq);
-        res.add(nums2Unq);
-        return res;
-    }
-
-    // LC 448
-    public List<Integer> findDisappearedNumbers(int[] nums) {
-        List<Integer> res = new ArrayList<>();
+    public List<List<Integer>> threeSum(int[] nums) {
+        res = new ArrayList<>();
+        Arrays.sort(nums);
         for (int i = 0; i < nums.length; i++) {
-            int curIdx = Math.abs(nums[i]) - 1;
-            if (nums[curIdx] > 0) {
-                nums[curIdx] *= -1;
-            }
-        }
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] > 0) {
-                res.add(i + 1);
-            }
+            if (i == 0 || nums[i] != nums[i - 1]) {
+                twoSum(nums, i);
+            }            
         }
         return res;
     }
 
-    // LC 252
-    public boolean canAttendMeetings(int[][] intervals) {
-        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-        for (int i = 0; i < intervals.length - 1; i++) {
-            if (intervals[i][1] > intervals[i + 1][0]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // LC 169
-    public int majorityElement(int[] nums) {
-        int count = 0, candidate = 0;
-        for (int n : nums) {
-            if (count == 0) {
-                candidate = n;
-            }
-            count += n == candidate ? 1 : -1;
-        }
-        return candidate;
-    }
-
-    // LC 136
-    public int singleNumber(int[] nums) {
-        Set<Integer> numSet = new HashSet<>();
-        int numsSum = 0, setSum = 0;
-        for (int n : nums) {
-            numsSum += n;
-            if (!numSet.contains(n)) {
-                numSet.add(n);
-                setSum += n;
-            }
-        }
-        return 2 * setSum - numsSum;
-    }
-
-    // LC 11
-    public int maxArea(int[] height) {
-        int left = 0, right = height.length - 1, maxArea = 0;
-        while (left != right) {
-            int len = right - left;
-            int curHeight = Math.min(height[left], height[right]);
-            maxArea = Math.max(len * curHeight, maxArea);
-            if (height[left] <= height[right]) {
+    private void twoSum(int[] nums, int startIdx) {
+        int left = startIdx + 1, right = nums.length - 1;
+        while (left < right) {
+            int curSum = nums[startIdx] + nums[left] + nums[right];
+            if (curSum < 0) {
                 left++;
-            } else {
+            } else if (curSum > 0) {
                 right--;
+            } else {
+                res.add(List.of(nums[startIdx], nums[left++], nums[right--]));
+                // ensure to skip duplicate values
+                while (left < right && nums[left] == nums[left - 1]) {
+                    left++;
+                }
             }
         }
-        return maxArea;
     }
 
-    // LC 238
-    public int[] productExceptSelf(int[] nums) {
-        int[] res = new int[nums.length];
-        res[0] = 1;
-        for (int i = 1; i < nums.length; i++) {
-            res[i] = nums[i - 1] * res[i - 1];
-        }
-        int R = 1;
-        for (int i = nums.length - 1; i > -1; i--) {
-            res[i] = res[i] * R;
-            R *= nums[i];
+    // Sort and HashSet
+    private List<List<Integer>> res;
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        res = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if ((i == 0 || nums[i] != nums[i - 1]) && nums[i] <= 0) {
+                twoSum(nums, i);
+            }            
         }
         return res;
     }
 
-    // LC 347
-    public int[] topKFrequent(int[] nums, int k) {
-        if (k == nums.length) {
-            return nums;
-        }
-        Map<Integer, Integer> hm = new HashMap<>();
-        for (int n : nums) {
-            hm.put(n, hm.getOrDefault(n, 0) + 1);
-        }
-        Queue<Integer> minFreqHeap = new PriorityQueue<>((n1, n2) -> hm.get(n1) - hm.get(n2));
-        for (int n : hm.keySet()) {
-            minFreqHeap.add(n);
-            if (minFreqHeap.size() > k) {
-                minFreqHeap.poll();
+    private void twoSum(int[] nums, int startIdx) {
+        Set<Integer> seenCompl = new HashSet<>();
+        for (int i = startIdx + 1; i < nums.length; i++) {
+            int compl = (nums[startIdx] + nums[i]) * -1;
+            if (seenCompl.contains(compl)) {
+                res.add(Arrays.asList(nums[startIdx], nums[i], compl));
+                // Ensure to skip duplicates
+                while (i + 1 < nums.length && nums[i + 1] == nums[i]) i++;
             }
-        }
-        int[] res = new int[k];
-        for (int i = k - 1; i >= 0; i--) {
-            res[i] = minFreqHeap.poll();
-        }
-        return res;
+            seenCompl.add(nums[i]);
+        }        
     }
 
-    // LC 49
+
+    // 49. Group Anagrams
     public List<List<String>> groupAnagrams(String[] strs) {
-        List<List<String>> res = new ArrayList<>();
+        String[] charCountStr = new String[strs.length];
         Map<String, List<String>> anagramMap = new HashMap<>();
-        for (String s : strs) {
-            String charCountRep = formatToCharCount(s);
-            if (!anagramMap.containsKey(charCountRep)) {
-                anagramMap.put(charCountRep, new ArrayList<>());
+
+        for (int i = 0; i < strs.length; i++) {
+            charCountStr[i] = convertStrToCharCount(strs[i]);
+            if (!anagramMap.containsKey(charCountStr[i])) {
+                anagramMap.put(charCountStr[i], new ArrayList<>());
             }
-            anagramMap.get(charCountRep).add(s);
+            anagramMap.get(charCountStr[i]).add(strs[i]);
         }
-        return new ArrayList<>(anagramMap.values());
+        return new ArrayList(anagramMap.values());
     }
 
-    private String formatToCharCount(String s) {
+    private String convertStrToCharCount(String s) {
         int[] charCount = new int[26];
-        StringBuilder sBuilder = new StringBuilder();
+        StringBuilder charCountBldr = new StringBuilder();
         for (char c : s.toCharArray()) {
             charCount[c - 'a']++;
         }
+
         for (int i : charCount) {
-            sBuilder.append(i).append("#");
+            charCountBldr.append("#").append(i);
         }
-        return sBuilder.toString();
+        return charCountBldr.toString();
     }
 
-    // LC 989
-    public List<Integer> addToArrayForm(int[] num, int k) {
-        List<Integer> res = new ArrayList<>();
-        int cur = k, i = num.length - 1;
-        while (i > -1 || cur > 0) {
-            if (i > -1) {
-                cur += num[i];
-            }
-            res.add(cur % 10);
-            cur /= 10;
-            i--;
+    // 347. Top K Frequent Elements
+    public int[] topKFrequent(int[] nums, int k) {
+        int[] res = new int[k];
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        Queue<Integer> minHeap = new PriorityQueue<>((n1, n2) -> freqMap.get(n1) - freqMap.get(n2));
+
+        for (int i : nums) {
+            freqMap.put(i, freqMap.getOrDefault(i, 0) + 1);
         }
-        Collections.reverse(res);
+
+        for (int i : freqMap.keySet()) {
+            minHeap.add(i);
+            if (minHeap.size() > k) minHeap.poll();
+        }
+        
+        for (int i = 0; i < k; i++) {
+            res[i] = minHeap.poll();
+        }
         return res;
     }
 
-    // LC 888
-    public int[] fairCandySwap(int[] A, int[] B) {
-        int sa = 0, sb = 0;
-        for (int x : A) {
-            sa += x;
+    // 11. Container With Most Water
+    public int maxArea(int[] height) {
+        int maxArea = 0, left = 0, right = height.length - 1;
+        while (left < right) {
+            int curArea = Math.min(height[left], height[right]) * (right - left);
+            maxArea = Math.max(maxArea, curArea);
+            if (height[left] < height[right]) left++;
+            else right--;
         }
-        for (int x : B) {
-            sb += x;
-        }
-        int delta = (sb - sa) / 2;
-        Set<Integer> setB = new HashSet<>();
-        for (int x : B) {
-            setB.add(x);
-        }
-        for (int x : A) {
-            if (setB.contains(x + delta)) {
-                return new int[]{x, x + delta};
-            }
-        }
-        throw new IllegalArgumentException("No valid swap found");
-    }
-
-    // LC 747
-    public int dominantIndex(int[] nums) {
-        int largestNumIdx = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] > nums[largestNumIdx]) {
-                largestNumIdx = i;
-            }
-        }
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] * 2 > nums[largestNumIdx] && i != largestNumIdx) {
-                return -1;
-            }
-        }
-        return largestNumIdx;
-    }
-
-    // LC 643
-    public double findMaxAverage(int[] nums, int k) {
-        double maxAvg = Integer.MIN_VALUE;
-        for (int i = 0; i < nums.length - k + 1; i++) {
-            int curAvg = 0;
-            for (int j = i; j < k + i; j++) {
-                curAvg += nums[j];
-            }
-            maxAvg = Math.max(curAvg, maxAvg);
-        }
-        return maxAvg / k;
-    }
-
-    // LC 575
-    public int distributeCandies(int[] candyType) {
-        int n = candyType.length;
-        int uniqueCandyTypes = 1;
-        Arrays.sort(candyType);
-        for (int i = 1; i < n && uniqueCandyTypes < n / 2; i++) {
-            if (candyType[i] != candyType[i - 1]) {
-                uniqueCandyTypes++;
-            }
-        }
-        return Math.min(uniqueCandyTypes, n / 2);
-    }
-
-    // LC 500
-    public String[] findWords(String[] words) {
-        String row1 = "qwertyuiop";
-        String row2 = "asdfghjkl";
-        String row3 = "zxcvbnm";
-        List<String> res = new ArrayList<>();
-        for (String w : words) {
-            if (containsAllLetters(row1, w) || containsAllLetters(row2, w) || containsAllLetters(row3, w)) {
-                res.add(w);
-            }
-        }
-        return res.toArray(new String[0]);
-    }
-
-    private boolean containsAllLetters(String row, String word) {
-        for (char c : word.toCharArray()) {
-            if (!row.contains(String.valueOf(Character.toLowerCase(c)))) {
-                return false;
-            }
-        }
-        return true;
+        return maxArea;
     }
 }
