@@ -30,4 +30,25 @@ public class Graph {
         dfs(grid, r, c - 1);
         dfs(grid, r, c + 1);
     }
+
+  // LE 133. Clone Graph
+  public Node cloneGraph(Node node) {
+        if (node == null) return node;
+        HashMap<Node, Node> visited = new HashMap();
+        Deque<Node> qu = new ArrayDeque<>();
+        qu.add(node);
+        visited.put(node, new Node(node.val, new ArrayList<>()));
+
+        while (!qu.isEmpty()) {
+            Node cur = qu.poll();
+            for (Node neighbor : cur.neighbors) {
+                if (!visited.containsKey(neighbor)) {
+                    visited.put(neighbor, new Node(neighbor.val, new ArrayList()));
+                    qu.add(neighbor);
+                }
+                visited.get(cur).neighbors.add(visited.get(neighbor));
+            }
+        }
+        return visited.get(node);
+    }
 }
