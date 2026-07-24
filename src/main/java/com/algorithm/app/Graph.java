@@ -51,4 +51,35 @@ public class Graph {
         }
         return visited.get(node);
     }
+
+  // 695. Max Area of Island
+  int rowLen;
+    int colLen;
+    int[][] grid;
+    boolean[][] seen;
+
+    public int maxAreaOfIsland(int[][] grid) {
+        this.grid = grid;
+        this.rowLen = grid.length;
+        this.colLen = grid[0].length;
+        int maxArea = 0;
+        this.seen = new boolean[rowLen][colLen];
+
+        for (int r = 0; r < rowLen; r++) {
+            for (int c = 0; c < colLen; c++) {
+                if (grid[r][c] == 1 && !seen[r][c]) {
+                    maxArea = Math.max(maxArea, area(r, c));
+                }
+            }
+        }
+        return maxArea;
+    }
+
+    private int area(int r, int c) {
+        if (r < 0 || r > rowLen || c < 0 || c > colLen || seen[r][c] || grid[r][c] == 0) {
+            return 0;
+        }
+        seen[r][c] = true;
+        return 1 + area(r + 1, c) + area(r - 1, c) + area(r, c - 1) + area(r, c + 1);
+    }
 }
